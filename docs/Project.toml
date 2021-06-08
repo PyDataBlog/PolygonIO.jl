@@ -1,0 +1,3 @@
+[deps]
+Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
+PolygonIO = "8d21102f-33ed-495a-9a0c-ac543572a703"
