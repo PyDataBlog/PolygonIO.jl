@@ -1,39 +1,19 @@
-# Publisher struct
-@Base.kwdef mutable struct Publisher
-    name::String = ""
-    homepage_url::String = ""
-    logo_url::String = ""
-    favicon_url::String = ""
+"""
+    AbstractPolyOptions
+
+Abstract base type for all generic options.
+"""
+abstract type AbstractPolyOptions end
+
+
+"""
+    PolyOpts <: AbstractPolyOptions
+
+# api_key: String representing the API key from a registered polygon.io account.
+# table: Boolean value specifying where the results should be tabularized or not.
+"""
+struct PolyOpts <: AbstractPolyOptions
+    api_key::String
+    table::Bool
 end
-
-
-# NewsRecord struct
-@Base.kwdef mutable struct NewsRecord
-    id::String = ""
-    publisher::Publisher = Publisher()
-    title::String = ""
-    author::String = ""
-    published_utc::String = ""
-    article_url::String = ""
-    tickers::Vector{String} = String[]
-    amp_url::String = ""
-    image_url::String = ""
-    description::String = ""
-    keywords::Vector{String} = String[]
-end
-
-
-# News struct
-@Base.kwdef mutable struct News
-    results::Vector{NewsRecord} = NewsRecord[]
-    status::String = ""
-    request_id::String = ""
-    count::Int = 0
-end
-
-
-# Make all custom struct types mutable
-StructTypes.StructType(::Type{NewsRecord}) = StructTypes.Mutable()
-StructTypes.StructType(::Type{News}) = StructTypes.Mutable()
-StructTypes.StructType(::Type{Publisher}) = StructTypes.Mutable()
 

@@ -7,12 +7,16 @@ version = "0.1.0"
 HTTP = "cd3eb016-35fb-5094-929b-558a96fad6f3"
 JSON3 = "0f8b85d8-7281-11e9-16c2-39a750bddbf1"
 StructTypes = "856f2bd8-1eba-4b0a-8007-ebc267875bd4"
+TypedTables = "9d95f2ec-7b3d-5a63-8d20-e2491e220bb9"
 
 [compat]
 julia = "1"
 
 [extras]
+Cascadia = "54eefc05-d75b-58de-a785-1a3403f0919f"
+ConfigEnv = "01234589-554d-41b7-ae5c-7b6ee2db6796"
+Gumbo = "708ec375-b3d6-5a57-a7ce-8257bf98657a"
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 
 [targets]
-test = ["Test"]
+test = ["Test", "Gumbo", "Cascadia", "ConfigEnv"]
