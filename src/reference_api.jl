@@ -9,8 +9,6 @@ function tickers(opts::PolyOpts,
                 limit::Int=10,
                 kwargs...)
 
-    base_url = "https://api.polygon.io/v3/reference/tickers"
-
     params = Dict(
         "search" => search,
         "active" => active,
@@ -20,18 +18,16 @@ function tickers(opts::PolyOpts,
         "apiKey" => opts.api_key
     )
     # Extract kwargs and add to params
-    user_options = Dict(kwargs)
-    merge!(params, user_options)
+    merge!(params, Dict(kwargs))
 
-    request_json = HTTP.get(base_url, query=params).body |> JSON3.read
+    request_json = HTTP.get(tickers_base_url, query=params).body |> JSON3.read
 
-    while request_json.status == "OK"
-        if opts.table
-            return request_json.results |> Table
-        else
-            return request_json.results
-        end
+    if opts.sink === nothing
+        return request_json.results
+    else
+        return request_json.results |> opts.sink
     end
+
 
 end
 

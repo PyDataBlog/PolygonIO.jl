@@ -1,10 +1,8 @@
 module PolygonIO
 
 # Gloabl Imports
-using StructTypes
 using JSON3
 using HTTP
-using TypedTables
 
 
 ######### Import modules & utils ################

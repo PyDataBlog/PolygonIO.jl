@@ -1,0 +1,1 @@
+tickers_base_url = "https://api.polygon.io/v3/reference/tickers"

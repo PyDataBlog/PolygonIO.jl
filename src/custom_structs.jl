@@ -14,6 +14,6 @@ abstract type AbstractPolyOptions end
 """
 struct PolyOpts <: AbstractPolyOptions
     api_key::String
-    table::Bool
+    sink::Any
 end
 
