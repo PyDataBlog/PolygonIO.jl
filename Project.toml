@@ -1,13 +1,19 @@
 name = "PolygonIO"
 uuid = "8d21102f-33ed-495a-9a0c-ac543572a703"
-authors = ["PyDataBlog <bbrenyah@gmail.com> and contributors"]
+authors = ["Bernard Brenyah and contributors"]
 version = "0.1.0"
+
+[deps]
+HTTP = "cd3eb016-35fb-5094-929b-558a96fad6f3"
+JSON3 = "0f8b85d8-7281-11e9-16c2-39a750bddbf1"
 
 [compat]
 julia = "1"
 
 [extras]
+ConfigEnv = "01234589-554d-41b7-ae5c-7b6ee2db6796"
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+TypedTables = "9d95f2ec-7b3d-5a63-8d20-e2491e220bb9"
 
 [targets]
-test = ["Test"]
+test = ["ConfigEnv", "Test", "TypedTables"]

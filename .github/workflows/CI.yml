@@ -37,10 +37,14 @@ jobs:
             ${{ runner.os }}-
       - uses: julia-actions/julia-buildpkg@v1
       - uses: julia-actions/julia-runtest@v1
+        env:
+          API_KEY: ${{ secrets.API_KEY }}
       - uses: julia-actions/julia-processcoverage@v1
       - uses: codecov/codecov-action@v1
         with:
+          token: ${{ secrets.CODECOV_TOKEN }}
           file: lcov.info
+          verbose: true
   docs:
     name: Documentation
     runs-on: ubuntu-latest
