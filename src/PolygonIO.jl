@@ -1,7 +1,6 @@
 module PolygonIO
 
 # Gloabl Imports
-using HTTP: body
 using JSON3
 using HTTP
 
