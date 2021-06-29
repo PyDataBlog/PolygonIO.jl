@@ -1,6 +1,7 @@
 module PolygonIO
 
 # Gloabl Imports
+using HTTP: body
 using JSON3
 using HTTP
 
@@ -17,6 +18,6 @@ include("streaming_socket.jl")
 
 
 ######### Global export of user API  ################
-export tickers, PolyOpts
+export PolyOpts, tickers, ticker_types
 
 end
