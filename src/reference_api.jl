@@ -28,11 +28,21 @@ function tickers(opts::PolyOpts,
         return request_json.results |> opts.sink
     end
 
-
 end
 
 ############ Ticker Types  ####################
+"""
+"""
+function ticker_types(opts::PolyOpts)
+    params = Dict("apiKey" => opts.api_key)
+    request_json = HTTP.get(ticker_types_base_url, query=params).body |> JSON3.read
 
+    if opts.sink ≠ nothing
+        @warn "This endpoint does not support a tabular interface. Returning JSON instead of $(opts.sink)."
+    end
+
+    return request_json.results
+end
 
 ############ Tickers Details ####################
 
