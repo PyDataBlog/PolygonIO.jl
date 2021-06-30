@@ -3,10 +3,10 @@
 """
 function tickers(opts::PolyOpts,
                 search::String;
-                active::Bool=true,
-                sort::String="ticker",
-                order::String="asc",
-                limit::Int=10,
+                active=true,
+                sort="ticker",
+                order="asc",
+                limit=10,
                 kwargs...)
 
     params = Dict(
@@ -37,15 +37,24 @@ function ticker_types(opts::PolyOpts)
     params = Dict("apiKey" => opts.api_key)
     request_json = HTTP.get(ticker_types_base_url, query=params).body |> JSON3.read
 
-    if opts.sink ≠ nothing
-        @warn "This endpoint does not support a tabular interface. Returning JSON instead of $(opts.sink)."
-    end
-
     return request_json.results
 end
 
 ############ Tickers Details ####################
+"""
+"""
+function ticker_details(opts::PolyOpts, stocksTicker::String)
+    params = Dict("apiKey" => opts.api_key)
+    ticker_details_base_url = "https://api.polygon.io/v1/meta/symbols/$stocksTicker/company"
 
+    request_json = HTTP.get(ticker_details_base_url, query=params).body |> JSON3.read
+
+    if opts.sink === nothing
+        return request_json
+    else
+        return [request_json] |> opts.sink
+    end
+end
 
 ############ Ticker Details vX ####################
 
