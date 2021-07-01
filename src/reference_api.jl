@@ -106,10 +106,33 @@ function ticker_news(opts::PolyOpts,
 end
 
 ############ Markets  ####################
+"""
+"""
+function markets(opts::PolyOpts)
+    params = Dict("apiKey" => opts.api_key)
+    request_json = HTTP.get(markets_base_url, query=params).body |> JSON3.read
+
+    if opts.sink === nothing
+        return request_json.results
+    else
+        return request_json.results |> opts.sink
+    end
+end
 
 
 ############ Locales  ####################
+"""
+"""
+function locales(opts::PolyOpts)
+    params = Dict("apiKey" => opts.api_key)
+    request_json = HTTP.get(locales_base_url, query=params).body |> JSON3.read
 
+    if opts.sink === nothing
+        return request_json.results
+    else
+        return request_json.results |> opts.sink
+    end
+end
 
 ############ Stock Splits  ####################
 

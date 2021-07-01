@@ -31,4 +31,12 @@ const regular_opts = PolyOpts(API_KEY, nothing)
     # ticker_news test
     @test ticker_news(tabular_opts, "AAPL") |> length == 10
     @test ticker_news(regular_opts, "AAPL") |> length == 10
+
+    # markets test
+    @test markets(regular_opts) |> length == 7
+    @test markets(tabular_opts) |> size == (7,)
+
+    # locales test
+    @test locales(regular_opts) |> size == (19,)
+    @test locales(tabular_opts) |> size == (19,)
 end
