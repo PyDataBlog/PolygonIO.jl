@@ -78,7 +78,32 @@ function ticker_details_vX(opts::PolyOpts, ticker::String, date::String)
 end
 
 ############ Ticker News  #######################
+"""
+"""
+function ticker_news(opts::PolyOpts,
+                    ticker::String;
+                    published_utc_gte="2021-04-26",
+                    limit=10,
+                    order="descending",
+                    sort="published_utc",
+                    kwargs...)
 
+    params = Dict(
+        "apiKey" => opts.api_key,
+        "ticker" => ticker,
+        "published_utc.gte" => published_utc_gte,
+        "limit" => limit,
+        "order" => order,
+        "sort" => sort
+    )
+    # Extract kwargs and add to params
+    merge!(params, Dict(kwargs))
+
+    request_json = HTTP.get(ticker_new_base_url, query=params).body |> JSON3.read
+
+    return request_json.results
+
+end
 
 ############ Markets  ####################
 
