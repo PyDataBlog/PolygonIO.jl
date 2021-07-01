@@ -27,4 +27,8 @@ const regular_opts = PolyOpts(API_KEY, nothing)
     # ticker_details_vX next version test
     @test ticker_details_vX(tabular_opts, "AAPL", "2019-07-31") |> size == (1, )
     @test ticker_details_vX(regular_opts, "AAPL", "2019-07-31") |> length == 19
+
+    # ticker_news test
+    @test ticker_news(tabular_opts, "AAPL") |> length == 10
+    @test ticker_news(regular_opts, "AAPL") |> length == 10
 end
