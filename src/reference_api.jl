@@ -57,7 +57,25 @@ function ticker_details(opts::PolyOpts, stocksTicker::String)
 end
 
 ############ Ticker Details vX ####################
+"""
+"""
+function ticker_details_vX(opts::PolyOpts, ticker::String, date::String)
+    # TODO: Dispatch on proper Date type?
+    ticker_details_vX_base_url = "https://api.polygon.io/vX/reference/tickers/$ticker"
 
+    params = Dict(
+        "apiKey" => opts.api_key,
+        "date"   => date
+    )
+
+    request_json = HTTP.get(ticker_details_vX_base_url, query=params).body |> JSON3.read
+
+    if opts.sink === nothing
+        return request_json.results
+    else
+        return [request_json.results] |> opts.sink
+    end
+end
 
 ############ Ticker News  #######################
 
