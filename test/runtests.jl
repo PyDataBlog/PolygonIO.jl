@@ -1,4 +1,3 @@
-using Test: length
 using ConfigEnv
 using PolygonIO
 using TypedTables
@@ -21,6 +20,11 @@ const regular_opts = PolyOpts(API_KEY, nothing)
     @test ticker_types(tabular_opts) |> length == 2
     @test ticker_types(regular_opts) |> length == 2
 
+    # ticker_details test
     @test ticker_details(tabular_opts, "AAPL") |> size == (1, )
     @test ticker_details(regular_opts, "AAPL") |> length == 28
+
+    # ticker_details_vX next version test
+    @test ticker_details_vX(tabular_opts, "AAPL", "2019-07-31") |> size == (1, )
+    @test ticker_details_vX(regular_opts, "AAPL", "2019-07-31") |> length == 19
 end
