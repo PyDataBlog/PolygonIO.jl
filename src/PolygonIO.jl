@@ -18,7 +18,9 @@ include("streaming_socket.jl")
 
 ######### Global export of user API  ################
 export PolyOpts, tickers, ticker_types, ticker_details, ticker_details_vX,
-       ticker_news, markets, locales
+       ticker_news, markets, locales, stock_splits, stock_dividends,
+       stock_financials, market_holidays, market_status, stock_exchanges,
+       condition_mappings, crypto_exchanges
 
 
 end
