@@ -135,24 +135,109 @@ function locales(opts::PolyOpts)
 end
 
 ############ Stock Splits  ####################
+"""
+"""
+function stock_splits(opts::PolyOpts, stocksTicker::String)
+    stock_splits_base_url = "https://api.polygon.io/v2/reference/splits/$stocksTicker"
+    params = Dict("apiKey" => opts.api_key)
+    request_json = HTTP.get(stock_splits_base_url, query=params).body |> JSON3.read
 
+    return request_json.results
+end
 
 ############ Stock Dividends  ####################
+"""
+"""
+function stock_dividends(opts::PolyOpts, stocksTicker::String)
+    stock_dividends_base_url = "https://api.polygon.io/v2/reference/dividends/$stocksTicker"
+    params = Dict("apiKey" => opts.api_key)
 
+    request_json = HTTP.get(stock_dividends_base_url, query=params).body |> JSON3.read
+
+    if opts.sink === nothing
+        return request_json.results
+    else
+        return request_json.results |> opts.sink
+    end
+end
 
 ############ Stock Financials  ####################
+"""
+"""
+function stock_financials(opts::PolyOpts, stocksTicker::String; limit=5, kwargs...)
+    stock_financials_base_url = "https://api.polygon.io/v2/reference/financials/$stocksTicker"
+    params = Dict(
+        "apiKey" => opts.api_key,
+        "limit" => limit
+    )
+    # Extract kwargs and add to params
+    merge!(params, Dict(kwargs))
 
+    request_json = HTTP.get(stock_financials_base_url, query=params).body |> JSON3.read
+
+    if opts.sink === nothing
+        return request_json.results
+    else
+        return request_json.results |> opts.sink
+    end
+end
 
 ############ Market Holidays  ####################
+"""
+"""
+function market_holidays(opts::PolyOpts)
+    params = Dict("apiKey" => opts.api_key)
+    request_json = HTTP.get(market_holidays_base_url, query=params).body |> JSON3.read
 
+    if opts.sink === nothing
+        return request_json
+    else
+        return request_json |> opts.sink
+    end
+end
 
 ############ Market Status  ####################
+"""
+"""
+function market_status(opts::PolyOpts)
+    params = Dict("apiKey" => opts.api_key)
+    request_json = HTTP.get(market_status_base_url, query=params).body |> JSON3.read
 
+    return request_json
+end
 
 ############ Stock Exchanges  ####################
+"""
+"""
+function stock_exchanges(opts::PolyOpts)
+    params = Dict("apiKey" => opts.api_key)
+    request_json = HTTP.get(stock_exchanges_base_url, query=params).body |> JSON3.read
 
+    return request_json
+end
 
 ############ Condition Mappings  ####################
+"""
+"""
+function condition_mappings(opts::PolyOpts, tickertype="trades")
+    condition_mappings_base_url = "https://api.polygon.io/v1/meta/conditions/$tickertype"
+    params = Dict("apiKey" => opts.api_key)
 
+    request_json = HTTP.get(condition_mappings_base_url, query=params).body |> JSON3.read
+
+    return request_json
+end
 
 ############ Crypto Exchanges ####################
+"""
+"""
+function crypto_exchanges(opts::PolyOpts)
+    params = Dict("apiKey" => opts.api_key)
+    request_json = HTTP.get(crypto_exchanges_base_url, query=params).body |> JSON3.read
+
+    if opts.sink === nothing
+        return request_json
+    else
+        return request_json |> opts.sink
+    end
+end
