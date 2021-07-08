@@ -1,36 +1,5 @@
 """
 """
-function generate_output_from_url(url, params, sink; results=false)
-    request_json = HTTP.get(url, query=params).body |> JSON3.read
-
-    if sink === nothing
-        if results
-            return request_json.results
-        else
-            return request_json
-        end
-    else
-        if results
-            try
-                return request_json.results |> jsontable |> sink
-            catch
-                return request_json.results |> x -> sink([x])
-            end
-        else
-            try
-                return request_json |> jsontable |> sink
-            catch
-                return request_json |> x -> sink([x])
-            end
-        end
-    end
-    return request_json
-
-end
-
-
-"""
-"""
 function generate_output_from_url(choice::AbstractPolyChoice, url, params, sink)
     request_json = HTTP.get(url, query=params).body |> JSON3.read
 
