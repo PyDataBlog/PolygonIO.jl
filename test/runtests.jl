@@ -58,7 +58,7 @@ const regular_opts = PolyOpts(API_KEY, nothing)
 
     # market_status test
     @test market_status(regular_opts) |> length >= 6
-    @test market_status(tabular_opts) |> length >= 6
+    @test market_status(tabular_opts) |> length >= 1
 
     # stock_exchanges test
     @test stock_exchanges(regular_opts) |> length >= 30
@@ -85,7 +85,7 @@ end
 
     # last_trade_symbol test
     @test last_trade_symbol(tabular_opts, "AAPL") |> length == 1
-    @test last_trade_symbol(regular_opts, "AAPL") |> length == 10
+    @test last_trade_symbol(regular_opts, "AAPL") |> length >= 10
 
     # last_quote_symbol test
     @test last_quote_symbol(regular_opts, "AAPL") |> length >= 10
@@ -94,6 +94,10 @@ end
     # daily_open_close test
     @test daily_open_close(tabular_opts, "AAPL", "2020-10-14") |> length == 1
     @test daily_open_close(regular_opts, "AAPL", "2020-10-14") |> length >= 10
+
+    # grouped_daily_bars test
+    @test grouped_daily_bars(tabular_opts, "2020-10-14"; adjusted=true) |> length >= 8000
+    @test grouped_daily_bars(regular_opts, "2020-10-14"; adjusted=false) |> length >= 8000
 
     # previous_close test
     @test previous_close(tabular_opts, "AAPL") |> length == 1
@@ -104,14 +108,14 @@ end
     @test aggregates_bars(regular_opts, "AAPL") |> length == 1
 
     # snapshot_all_tickers test
-    # @test snapshot_all_tickers(tabular_opts, "AAPL,AMZN")
-    # @test snapshot_all_tickers(regular_opts, "AAPL,AMZN")
+    @test snapshot_all_tickers(tabular_opts, "AAPL,AMZN") |> length == 2
+    @test snapshot_all_tickers(regular_opts, "AAPL,AMZN") |> length == 2
 
-    # # snapshot_ticker test
-    # @test snapshot_ticker(tabular_opts, "AAPL")
-    # @test snapshot_ticker(regular_opts, "AAPL")
+    # snapshot_ticker test
+    @test snapshot_ticker(tabular_opts, "AAPL") |> length == 9
+    @test snapshot_ticker(regular_opts, "AAPL") |> length == 9
 
-    # # snapshot_gainers_losers test
-    # @test snapshot_gainers_losers(tabular_opts, "losers")
-    # @test snapshot_gainers_losers(regular_opts, "gainers")
+    # snapshot_gainers_losers test
+    @test snapshot_gainers_losers(tabular_opts, "losers") |> length >= 20
+    @test snapshot_gainers_losers(regular_opts, "gainers") |> length >= 20
 end

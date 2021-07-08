@@ -29,55 +29,74 @@ function generate_output_from_url(url, params, sink; results=false)
 end
 
 
-## Reference API ##
-tickers_base_url = "https://api.polygon.io/v3/reference/tickers"
+"""
+"""
+function generate_output_from_url(choice::AbstractPolyChoice, url, params, sink)
+    request_json = HTTP.get(url, query=params).body |> JSON3.read
 
-ticker_types_base_url = "https://api.polygon.io/v2/reference/types"
-
-ticker_news_base_url = "https://api.polygon.io/v2/reference/news"
-
-markets_base_url = "https://api.polygon.io/v2/reference/markets"
-
-locales_base_url = "https://api.polygon.io/v2/reference/locales"
-
-market_holidays_base_url = "https://api.polygon.io/v1/marketstatus/upcoming"
-
-market_status_base_url = "https://api.polygon.io/v1/marketstatus/now"
-
-stock_exchanges_base_url = "https://api.polygon.io/v1/meta/exchanges"
-
-crypto_exchanges_base_url = "https://api.polygon.io/v1/meta/crypto-exchanges"
-
-ticker_details_base_url = "https://api.polygon.io/v1/meta/symbols"
-
-ticker_details_vX_base_url = "https://api.polygon.io/vX/reference/tickers"
-
-stock_splits_base_url = "https://api.polygon.io/v2/reference/splits"
-
-stock_dividends_base_url = "https://api.polygon.io/v2/reference/dividends"
-
-stock_financials_base_url = "https://api.polygon.io/v2/reference/financials"
+    return apply_choice(choice, request_json, sink)
+end
 
 
-## Stock API ##
-trades_base_url = "https://api.polygon.io/v2/ticks/stocks/trades"
+"""
+"""
+function apply_choice(::NoSinkYesResults, x, sink)
+    return x.results
+end
 
-quotes_base_url = "https://api.polygon.io/v2/ticks/stocks/nbbo"
 
-last_trade_base_url = "https://api.polygon.io/v2/last/trade"
+"""
+"""
+function apply_choice(::NoSinkNoResults, x, sink)
+    return x
+end
 
-last_quote_base_url = "https://api.polygon.io/v2/last/nbbo"
 
-daily_open_close_base_url = "https://api.polygon.io/v1/open-close"
+"""
+"""
+function apply_choice(::YesSinkYesResults, x, sink)
+    try
+        return x.results |> jsontable |> sink
+    catch
+        return x.results |> x -> sink([x])
+    end
+end
 
-grouped_daily_bars_base_url = "https://api.polygon.io/v2/aggs/grouped/locale/us/market/stocks"
 
-previous_close_base_url = "https://api.polygon.io/v2/aggs/ticker"
+"""
+"""
+function apply_choice(::YesSinkYesResults, x, sink::Nothing)
+    return apply_choice(NoSinkYesResults(), x, sink)
+end
 
-aggregates_bars_base_url = "https://api.polygon.io/v2/aggs/ticker"
 
-snapshot_all_tickers_base_url = "https://api.polygon.io/v2/snapshot/locale/us/markets/stocks/tickers"
+"""
+"""
+function apply_choice(::YesSinkNoResults, x, sink)
+    try
+        return x |> jsontable |> sink
+    catch
+        return x |> x -> sink([x])
+    end
+end
 
-snapshot_ticker_base_url = "https://api.polygon.io/v2/snapshot/locale/us/markets/stocks/tickers"
 
-snapshot_gainers_losers_base_url = "https://api.polygon.io/v2/snapshot/locale/us/markets/stocks"
+"""
+"""
+function apply_choice(::YesSinkNoResults, x, sink::Nothing)
+    return apply_choice(NoSinkNoResults(), x, sink)
+end
+
+
+"""
+"""
+function apply_choice(::NoSinkYesTickers, x, sink)
+    return x.tickers
+end
+
+
+"""
+"""
+function apply_choice(::NoSinkYesTicker, x, sink)
+    return x.ticker
+end

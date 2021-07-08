@@ -10,7 +10,8 @@ function trades(opts::PolyOpts, ticker::String, date::String; limit=10, reverse=
     )
 
     merge!(params, Dict(kwargs))
-    return generate_output_from_url(trades_url, params, opts.sink; results=true)
+
+    return generate_output_from_url(YesSinkYesResults(), trades_url, params, opts.sink)
 end
 
 
@@ -18,7 +19,7 @@ end
 """
 """
 function quotes_nbbo(opts::PolyOpts, ticker::String, date::String; limit=10, reverse=true, kwargs...)
-    trades_url = "$quotes_base_url/$ticker/$date"
+    quotes_url = "$quotes_base_url/$ticker/$date"
     params = Dict(
         "apiKey" => opts.api_key,
         "limit" => limit,
@@ -27,7 +28,7 @@ function quotes_nbbo(opts::PolyOpts, ticker::String, date::String; limit=10, rev
 
     merge!(params, Dict(kwargs))
 
-    return generate_output_from_url(trades_url, params, opts.sink; results=true)
+    return generate_output_from_url(YesSinkYesResults(), quotes_url, params, opts.sink)
 end
 
 
@@ -38,7 +39,7 @@ function last_trade_symbol(opts::PolyOpts, stocksTicker::String)
     last_trade_url = "$last_trade_base_url/$stocksTicker"
     params = Dict("apiKey" => opts.api_key)
 
-    return generate_output_from_url(last_trade_url, params, opts.sink; results=true)
+    return generate_output_from_url(YesSinkYesResults(), last_trade_url, params, opts.sink)
 end
 
 
@@ -49,7 +50,7 @@ function last_quote_symbol(opts::PolyOpts, stocksTicker::String)
     last_quote_url = "$last_quote_base_url/$stocksTicker"
     params = Dict("apiKey" => opts.api_key)
 
-    return generate_output_from_url(last_quote_url, params, opts.sink; results=true)
+    return generate_output_from_url(YesSinkYesResults(), last_quote_url, params, opts.sink)
 end
 
 
@@ -62,7 +63,8 @@ function daily_open_close(opts::PolyOpts, stocksTicker::String, date::String; ad
         "apiKey" => opts.api_key,
         "adjusted" => adjusted
     )
-    return generate_output_from_url(daily_open_close_url, params, opts.sink; results=false)
+
+    return generate_output_from_url(YesSinkNoResults(), daily_open_close_url, params, opts.sink)
 end
 
 
@@ -75,7 +77,8 @@ function grouped_daily_bars(opts::PolyOpts, date::String; adjusted=true)
         "apiKey" => opts.api_key,
         "adjusted" => adjusted
     )
-    return generate_output_from_url(grouped_daily_bars_url, params, nothing; results=true)
+
+    return generate_output_from_url(YesSinkYesResults(), grouped_daily_bars_url, params, opts.sink)
 end
 
 
@@ -89,7 +92,7 @@ function previous_close(opts::PolyOpts, stocksTicker::String; adjusted=true)
         "adjusted" => adjusted
     )
 
-    return generate_output_from_url(previous_close_url, params, opts.sink; results=true)
+    return generate_output_from_url(YesSinkYesResults(), previous_close_url, params, opts.sink)
 end
 
 
@@ -122,7 +125,8 @@ function aggregates_bars(opts::PolyOpts,
 
     merge!(params, Dict(kwargs))
 
-    return generate_output_from_url(aggregates_bars_url, params, opts.sink; results=true)
+    return generate_output_from_url(YesSinkYesResults(), aggregates_bars_url, params, opts.sink)
+
 end
 
 
@@ -137,7 +141,7 @@ function snapshot_all_tickers(opts::PolyOpts, tickers::String)
         "tickers" => tickers
     )
 
-    return generate_output_from_url(snapshot_all_tickers_url, params, opts.sink; results=true)
+    return generate_output_from_url(NoSinkYesTickers(), snapshot_all_tickers_url, params, opts.sink)
 end
 
 
@@ -148,7 +152,7 @@ function snapshot_ticker(opts::PolyOpts, stocksTicker::String)
     snapshot_ticker_url = "$snapshot_ticker_base_url/$stocksTicker"
     params = Dict("apiKey" => opts.api_key)
 
-    return generate_output_from_url(snapshot_ticker_url, params, opts.sink; results=false)
+    return generate_output_from_url(NoSinkYesTicker(), snapshot_ticker_url, params, opts.sink)
 end
 
 
@@ -162,5 +166,5 @@ function snapshot_gainers_losers(opts::PolyOpts, direction="losers")
         "direction" => direction
     )
 
-    return generate_output_from_url(snapshot_gainers_losers_url, params, opts.sink; results=false)
+    return generate_output_from_url(NoSinkYesTickers(), snapshot_gainers_losers_url, params, opts.sink)
 end

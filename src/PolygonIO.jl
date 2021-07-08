@@ -7,9 +7,10 @@ using HTTP
 
 
 ######### Import modules & utils ################
-include("utils.jl")
-include("crypto_api.jl")
 include("custom_structs.jl")
+include("utils.jl")
+include("urls.jl")
+include("crypto_api.jl")
 include("forex_api.jl")
 include("reference_api.jl")
 include("stock_api.jl")
