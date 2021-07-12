@@ -73,3 +73,22 @@ crypto_snapshot_ticker_full_book_base_url = "https://api.polygon.io/v2/snapshot/
 
 crypto_snapshot_gainers_losers_base_url = "https://api.polygon.io/v2/snapshot/locale/global/markets/crypto"
 
+
+## Forex API ##
+historic_forex_ticks_base_url = "https://api.polygon.io/v1/historic/forex"
+
+real_time_currency_conversion_base_url = "https://api.polygon.io/v1/conversion"
+
+last_quote_currency_pair_base_url = "https://api.polygon.io/v1/last_quote/currencies"
+
+forex_grouped_daily_bars_base_url = "https://api.polygon.io/v2/aggs/grouped/locale/global/market/fx"
+
+forex_previous_close_base_url = "https://api.polygon.io/v2/aggs/ticker"
+
+forex_aggregates_bars_base_url = "https://api.polygon.io/v2/aggs/ticker"
+
+forex_snapshot_ticker_base_url = "https://api.polygon.io/v2/snapshot/locale/global/markets/forex/tickers"
+
+forex_snapshot_all_tickers_base_url = "https://api.polygon.io/v2/snapshot/locale/global/markets/forex/tickers"
+
+forex_snapshot_gainers_losers_base_url = "https://api.polygon.io/v2/snapshot/locale/global/markets/forex"

@@ -162,3 +162,42 @@ end
     @test crypto_snapshot_gainers_losers(regular_opts, "gainers") |> length >= 1
     @test crypto_snapshot_gainers_losers(tabular_opts, "losers") |> length >= 1
 end
+
+
+@testset "Forex API" begin
+    # historic_forex_ticks test
+    @test historic_forex_ticks(regular_opts, "AUD", "USD", "2020-10-14"; limit=100) |> length >= 1
+    @test historic_forex_ticks(tabular_opts, "AUD", "USD", "2020-10-14"; limit=100) |> length >= 1
+
+    # real_time_currency_conversion test
+    @test real_time_currency_conversion(regular_opts, "AUD", "USD") |> length >= 8
+    @test real_time_currency_conversion(tabular_opts, "AUD", "USD") |> length >= 1
+
+    # last_quote_currency_pair test
+    @test last_quote_currency_pair(regular_opts, "AUD", "USD") |> length >= 1
+    @test last_quote_currency_pair(tabular_opts, "AUD", "USD") |> length >= 1
+
+    # forex_grouped_daily_bars test
+    @test forex_grouped_daily_bars(regular_opts, "2020-10-14"; adjusted=true) |> length >= 1
+    @test forex_grouped_daily_bars(tabular_opts, "2020-10-14"; adjusted=false) |> length >= 1
+
+    # forex_previous_close test
+    @test forex_previous_close(regular_opts, "C:EURUSD"; adjusted=true) |> length >= 1
+    @test forex_previous_close(tabular_opts, "C:EURUSD"; adjusted=false) |> length >= 1
+
+    # forex_aggregates_bars test
+    @test forex_aggregates_bars(regular_opts, "C:EURUSD", 1, "day", "2020-10-14", "2020-10-14"; adjusted=true) |> length >= 1
+    @test forex_aggregates_bars(tabular_opts, "C:EURUSD", 1, "day", "2020-10-14", "2020-10-14"; adjusted=false) |> length >= 1
+
+    # forex_snapshot_ticker test
+    @test forex_snapshot_ticker(regular_opts, "C:EURUSD") |> length >= 1
+    @test forex_snapshot_ticker(tabular_opts, "C:EURUSD") |> length >= 1
+
+    # forex_snapshot_all_tickers test
+    @test forex_snapshot_all_tickers(regular_opts) |> length >= 1
+    @test forex_snapshot_all_tickers(tabular_opts) |> length >= 1
+
+    # forex_snapshot_gainers_losers test
+    @test forex_snapshot_gainers_losers(regular_opts, "gainers") |> length >= 1
+    @test forex_snapshot_gainers_losers(tabular_opts, "losers") |> length >= 1
+end

@@ -151,3 +151,28 @@ end
 function apply_choice(::YesSinkYesData, x, sink::Nothing)
     return apply_choice(NoSinkYesData(), x, sink)
 end
+
+
+"""
+"""
+function apply_choice(::YesSinkYesTicks, x, sink)
+    try
+        return x.ticks |> jsontable |> sink
+    catch
+        return x.ticks |> x -> sink([x])
+    end
+end
+
+
+"""
+"""
+function apply_choice(::NoSinkYesTicks, x, sink)
+    return x.ticks
+end
+
+
+"""
+"""
+function apply_choice(::YesSinkYesTicks, x, sink::Nothing)
+    return apply_choice(NoSinkYesTicks(), x, sink)
+end
