@@ -43,7 +43,7 @@ function historic_crypto_trades(opts::PolyOpts, from="BTC", to="USD", date="2020
         "limit" => limit
     )
 
-    merge!(params, kwargs)
+    merge!(params, Dict(kwargs))
     historic_crypto_trades_url = "$crypto_historic_trades_base_url/$from/$to/$date"
     return generate_output_from_url(NoSinkNoResults(), historic_crypto_trades_url, params, opts.sink)
 end
@@ -81,15 +81,15 @@ end
 """
 """
 function crypto_aggregates_bars(opts::PolyOpts,
-                               cryptoTicker="X:BTCUSD",
-                               multiplier=1,
-                               timespan="day",
-                               from="2020-10-14",
-                               to="2020-10-14";
-                               adjusted=true,
-                               sort="asc",
-                               limit=120,
-                               kwargs...)
+                                cryptoTicker="X:BTCUSD",
+                                multiplier=1,
+                                timespan="day",
+                                from="2020-10-14",
+                                to="2020-10-14";
+                                adjusted=true,
+                                sort="asc",
+                                limit=120,
+                                kwargs...)
     params = Dict(
         "apiKey" => opts.api_key,
         "adjusted" => adjusted,
@@ -98,7 +98,7 @@ function crypto_aggregates_bars(opts::PolyOpts,
         "sort" => sort,
         "limit" => limit
         )
-    merge!(params, kwargs)
+    merge!(params, Dict(kwargs))
     crypto_aggregate_bars_url = "$crypto_aggregates_bars_base_url/$cryptoTicker/range/$multiplier/$timespan/$from/$to"
     return generate_output_from_url(YesSinkYesResults(), crypto_aggregate_bars_url, params, opts.sink)
 end
@@ -111,8 +111,43 @@ function crypto_snapshot_all_tickers(opts::PolyOpts; kwargs...)
     params = Dict(
         "apiKey" => opts.api_key
         )
-    merge!(params, kwargs)
+    merge!(params, Dict(kwargs))
     crypto_snapshot_all_tickers_url = "$crypto_snapshot_all_tickers_base_url"
     return generate_output_from_url(YesSinkYesTickers(), crypto_snapshot_all_tickers_url, params, opts.sink)
 end
 
+
+############################ Crypto Snapshot Ticker  ####################
+"""
+"""
+function crypto_snapshot_ticker(opts::PolyOpts, ticker="X:BTCUSD")
+    params = Dict(
+        "apiKey" => opts.api_key
+        )
+
+    crypto_snapshot_ticker_url = "$crypto_snapshot_ticker_base_url/$ticker"
+    return generate_output_from_url(YesSinkYesTicker(), crypto_snapshot_ticker_url, params, opts.sink)
+end
+
+############################ Crypto Snapshot Ticker Full Book  ####################
+"""
+"""
+function crypto_snapshot_ticker_full_book(opts::PolyOpts, ticker="X:BTCUSD")
+    params = Dict(
+        "apiKey" => opts.api_key,
+        )
+    crypto_snapshot_ticker_full_book_url = "$crypto_snapshot_ticker_full_book_base_url/$ticker/book"
+    return generate_output_from_url(YesSinkYesData(), crypto_snapshot_ticker_full_book_url, params, opts.sink)
+end
+
+
+############################ Crypto Snapshot Gainers/Losers  ####################
+"""
+"""
+function crypto_snapshot_gainers_losers(opts::PolyOpts, direction="gainers")
+    params = Dict(
+        "apiKey" => opts.api_key
+        )
+    crypto_snapshot_gainers_losers_url = "$crypto_snapshot_gainers_losers_base_url/$direction"
+    return generate_output_from_url(YesSinkYesTickers(), crypto_snapshot_gainers_losers_url, params, opts.sink)
+end

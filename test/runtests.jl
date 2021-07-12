@@ -145,4 +145,20 @@ end
     # crypto_aggregates_bars test
     @test crypto_aggregates_bars(regular_opts, "X:BTCUSD", 1, "day", "2020-10-14", "2020-10-14"; adjusted=true) |> length == 1
     @test crypto_aggregates_bars(tabular_opts, "X:BTCUSD", 1, "day", "2020-10-14", "2020-10-14"; adjusted=false) |> length == 1
+
+    # crypto_snapshot_all_tickers test
+    @test crypto_snapshot_all_tickers(regular_opts) |> length >= 1
+    @test crypto_snapshot_all_tickers(tabular_opts) |> length >= 1
+
+    # crypto_snapshot_ticker test
+    @test crypto_snapshot_ticker(regular_opts, "X:BTCUSD") |> length >= 1
+    @test crypto_snapshot_ticker(tabular_opts, "X:BTCUSD") |> length >= 1
+
+    # crypto_snapshot_ticker_full_book
+    @test crypto_snapshot_ticker_full_book(regular_opts, "X:BTCUSD") |> length >= 1
+    @test crypto_snapshot_ticker_full_book(tabular_opts, "X:BTCUSD") |> length >= 1
+
+    # crypto_snapshot_gainers_losers test
+    @test crypto_snapshot_gainers_losers(regular_opts, "gainers") |> length >= 1
+    @test crypto_snapshot_gainers_losers(tabular_opts, "losers") |> length >= 1
 end

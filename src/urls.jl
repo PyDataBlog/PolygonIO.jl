@@ -64,3 +64,12 @@ crypto_grouped_daily_bars_base_url = "https://api.polygon.io/v2/aggs/grouped/loc
 crypto_previous_close_base_url = "https://api.polygon.io/v2/aggs/ticker"
 
 crypto_aggregates_bars_base_url = "https://api.polygon.io/v2/aggs/ticker"
+
+crypto_snapshot_all_tickers_base_url = "https://api.polygon.io/v2/snapshot/locale/global/markets/crypto/tickers"
+
+crypto_snapshot_ticker_base_url = "https://api.polygon.io/v2/snapshot/locale/global/markets/crypto/tickers"
+
+crypto_snapshot_ticker_full_book_base_url = "https://api.polygon.io/v2/snapshot/locale/global/markets/crypto/tickers"
+
+crypto_snapshot_gainers_losers_base_url = "https://api.polygon.io/v2/snapshot/locale/global/markets/crypto"
+

@@ -24,12 +24,19 @@ struct PolyOpts <: AbstractPolyOptions
     sink::Any
 end
 
-
+# No Sink Structs
 struct NoSinkNoResults <: AbstractPolyChoice end
 struct NoSinkYesResults <: AbstractPolyChoice end
-struct YesSinkNoResults <: AbstractPolyChoice end
-struct YesSinkYesResults <: AbstractPolyChoice end
 struct NoSinkYesTickers <: AbstractPolyChoice end
 struct NoSinkYesTicker <: AbstractPolyChoice end
 struct NoSinkYesLast <: AbstractPolyChoice end
+struct NoSinkYesData <: AbstractPolyChoice end
+
+
+# Yes Sink Structs
 struct YesSinkYesLast <: AbstractPolyChoice end
+struct YesSinkYesTickers <: AbstractPolyChoice end
+struct YesSinkYesTicker <: AbstractPolyChoice end
+struct YesSinkNoResults <: AbstractPolyChoice end
+struct YesSinkYesResults <: AbstractPolyChoice end
+struct YesSinkYesData <: AbstractPolyChoice end
