@@ -119,3 +119,30 @@ end
     @test snapshot_gainers_losers(tabular_opts, "losers") |> length >= 20
     @test snapshot_gainers_losers(regular_opts, "gainers") |> length >= 20
 end
+
+
+@testset "Crypto API" begin
+    # last_trade_crypto_pair test
+    @test last_trade_crypto_pair(regular_opts) |> length >= 5
+    @test last_trade_crypto_pair(tabular_opts) |> length >= 1
+
+    # crypto_daily_open_close test
+    @test crypto_daily_open_close(regular_opts, "BTC", "USD", "2020-10-14"; adjusted=true) |> length >= 7
+    @test crypto_daily_open_close(tabular_opts, "BTC", "USD", "2020-10-14"; adjusted=false) |> length >= 7
+
+    # historic_crypto_trades test
+    @test historic_crypto_trades(regular_opts, "BTC", "USD", "2020-10-14"; limit=100) |> length >= 7
+    @test historic_crypto_trades(tabular_opts, "BTC", "USD", "2020-10-14"; limit=100) |> length >= 7
+
+    # crypto_grouped_daily_bars test
+    @test crypto_grouped_daily_bars(regular_opts, "2020-10-14"; adjusted=true) |> length >= 1
+    @test crypto_grouped_daily_bars(tabular_opts, "2020-10-14"; adjusted=false) |> length >= 1
+
+    # crypto_previous_close test
+    @test crypto_previous_close(regular_opts, "X:BTCUSD"; adjusted=true) |> length == 1
+    @test crypto_previous_close(tabular_opts, "X:BTCUSD"; adjusted=false) |> length == 1
+
+    # crypto_aggregates_bars test
+    @test crypto_aggregates_bars(regular_opts, "X:BTCUSD", 1, "day", "2020-10-14", "2020-10-14"; adjusted=true) |> length == 1
+    @test crypto_aggregates_bars(tabular_opts, "X:BTCUSD", 1, "day", "2020-10-14", "2020-10-14"; adjusted=false) |> length == 1
+end

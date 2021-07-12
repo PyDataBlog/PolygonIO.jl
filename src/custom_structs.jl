@@ -31,3 +31,5 @@ struct YesSinkNoResults <: AbstractPolyChoice end
 struct YesSinkYesResults <: AbstractPolyChoice end
 struct NoSinkYesTickers <: AbstractPolyChoice end
 struct NoSinkYesTicker <: AbstractPolyChoice end
+struct NoSinkYesLast <: AbstractPolyChoice end
+struct YesSinkYesLast <: AbstractPolyChoice end

@@ -26,7 +26,10 @@ export PolyOpts, tickers, ticker_types, ticker_details, ticker_details_vX,
 
        trades, quotes_nbbo, last_trade_symbol, last_quote_symbol, daily_open_close,
        grouped_daily_bars, previous_close, aggregates_bars, snapshot_all_tickers,
-       snapshot_ticker, snapshot_gainers_losers
+       snapshot_ticker, snapshot_gainers_losers,
+
+       last_trade_crypto_pair, crypto_daily_open_close, historic_crypto_trades,
+       crypto_grouped_daily_bars, crypto_previous_close, crypto_aggregates_bars
 
 
 end

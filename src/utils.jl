@@ -69,3 +69,24 @@ end
 function apply_choice(::NoSinkYesTicker, x, sink)
     return x.ticker
 end
+
+
+"""
+"""
+function apply_choice(::YesSinkYesLast, x, sink)
+    return x.last |> x -> sink([x])
+end
+
+
+"""
+"""
+function apply_choice(::NoSinkYesLast, x, sink)
+    return x.last
+end
+
+
+"""
+"""
+function apply_choice(::YesSinkYesLast, x, sink::Nothing)
+    return apply_choice(NoSinkYesLast(), x, sink)
+end

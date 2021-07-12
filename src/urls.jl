@@ -50,3 +50,17 @@ snapshot_all_tickers_base_url = "https://api.polygon.io/v2/snapshot/locale/us/ma
 snapshot_ticker_base_url = "https://api.polygon.io/v2/snapshot/locale/us/markets/stocks/tickers"
 
 snapshot_gainers_losers_base_url = "https://api.polygon.io/v2/snapshot/locale/us/markets/stocks"
+
+
+## Crypto API ##
+crypto_last_trade_pair_base_url = "https://api.polygon.io/v1/last/crypto"
+
+crypto_daily_open_close_base_url = "https://api.polygon.io/v1/open-close/crypto"
+
+crypto_historic_trades_base_url = "https://api.polygon.io/v1/historic/crypto"
+
+crypto_grouped_daily_bars_base_url = "https://api.polygon.io/v2/aggs/grouped/locale/global/market/crypto"
+
+crypto_previous_close_base_url = "https://api.polygon.io/v2/aggs/ticker"
+
+crypto_aggregates_bars_base_url = "https://api.polygon.io/v2/aggs/ticker"
