@@ -67,11 +67,7 @@ end
 """
 """
 function apply_choice(::YesSinkYesTickers, x, sink)
-    try
-        return x.tickers |> jsontable |> sink
-    catch
-        return x.tickers |> x -> sink([x])
-    end
+    return x.tickers |> jsontable |> sink
 end
 
 
@@ -150,4 +146,25 @@ end
 """
 function apply_choice(::YesSinkYesData, x, sink::Nothing)
     return apply_choice(NoSinkYesData(), x, sink)
+end
+
+
+"""
+"""
+function apply_choice(::YesSinkYesTicks, x, sink)
+    return x.ticks |> jsontable |> sink
+end
+
+
+"""
+"""
+function apply_choice(::NoSinkYesTicks, x, sink)
+    return x.ticks
+end
+
+
+"""
+"""
+function apply_choice(::YesSinkYesTicks, x, sink::Nothing)
+    return apply_choice(NoSinkYesTicks(), x, sink)
 end
