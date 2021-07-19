@@ -85,10 +85,10 @@ end
 
     # last_trade_symbol test
     @test stock_last_trade_symbol(tabular_opts, "AAPL") |> length == 1
-    @test stock_last_trade_symbol(regular_opts, "AAPL") |> length >= 10
+    @test stock_last_trade_symbol(regular_opts, "AAPL") |> length >= 1
 
     # last_quote_symbol test
-    @test stock_last_quote_symbol(regular_opts, "AAPL") |> length >= 10
+    @test stock_last_quote_symbol(regular_opts, "AAPL") |> length >= 1
     @test stock_last_quote_symbol(tabular_opts, "AAPL") |> length == 1
 
     # daily_open_close test
