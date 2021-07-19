@@ -15,6 +15,8 @@ market_status_base_url = "https://api.polygon.io/v1/marketstatus/now"
 
 stock_exchanges_base_url = "https://api.polygon.io/v1/meta/exchanges"
 
+condition_mappings_base_url = "https://api.polygon.io/v1/meta/conditions"
+
 crypto_exchanges_base_url = "https://api.polygon.io/v1/meta/crypto-exchanges"
 
 ticker_details_base_url = "https://api.polygon.io/v1/meta/symbols"
