@@ -76,48 +76,48 @@ end
 
 @testset "Stock API" begin
     # trades test
-    @test trades(tabular_opts, "AAPL", "2020-10-14") |> length == 10
-    @test trades(regular_opts, "AAPL", "2020-10-14") |> length == 10
+    @test stock_trades(tabular_opts, "AAPL", "2020-10-14") |> length == 10
+    @test stock_trades(regular_opts, "AAPL", "2020-10-14") |> length == 10
 
     # quotes_nbbo test
-    @test quotes_nbbo(tabular_opts, "AAPL", "2020-10-14") |> length == 10
-    @test quotes_nbbo(regular_opts, "AAPL", "2020-10-14") |> length == 10
+    @test stock_quotes_nbbo(tabular_opts, "AAPL", "2020-10-14") |> length == 10
+    @test stock_quotes_nbbo(regular_opts, "AAPL", "2020-10-14") |> length == 10
 
     # last_trade_symbol test
-    @test last_trade_symbol(tabular_opts, "AAPL") |> length == 1
-    @test last_trade_symbol(regular_opts, "AAPL") |> length >= 10
+    @test stock_last_trade_symbol(tabular_opts, "AAPL") |> length == 1
+    @test stock_last_trade_symbol(regular_opts, "AAPL") |> length >= 10
 
     # last_quote_symbol test
-    @test last_quote_symbol(regular_opts, "AAPL") |> length >= 10
-    @test last_quote_symbol(tabular_opts, "AAPL") |> length == 1
+    @test stock_last_quote_symbol(regular_opts, "AAPL") |> length >= 10
+    @test stock_last_quote_symbol(tabular_opts, "AAPL") |> length == 1
 
     # daily_open_close test
-    @test daily_open_close(tabular_opts, "AAPL", "2020-10-14") |> length == 1
-    @test daily_open_close(regular_opts, "AAPL", "2020-10-14") |> length >= 10
+    @test stock_daily_open_close(tabular_opts, "AAPL", "2020-10-14") |> length == 1
+    @test stock_daily_open_close(regular_opts, "AAPL", "2020-10-14") |> length >= 10
 
     # grouped_daily_bars test
-    @test grouped_daily_bars(tabular_opts, "2020-10-14"; adjusted=true) |> length >= 8000
-    @test grouped_daily_bars(regular_opts, "2020-10-14"; adjusted=false) |> length >= 8000
+    @test stock_grouped_daily_bars(tabular_opts, "2020-10-14"; adjusted=true) |> length >= 8000
+    @test stock_grouped_daily_bars(regular_opts, "2020-10-14"; adjusted=false) |> length >= 8000
 
     # previous_close test
-    @test previous_close(tabular_opts, "AAPL") |> length == 1
-    @test previous_close(regular_opts, "AAPL") |> length == 1
+    @test stock_previous_close(tabular_opts, "AAPL") |> length == 1
+    @test stock_previous_close(regular_opts, "AAPL") |> length == 1
 
     # aggregates_bars test
-    @test aggregates_bars(tabular_opts, "AAPL") |> length == 1
-    @test aggregates_bars(regular_opts, "AAPL") |> length == 1
+    @test stock_aggregates_bars(tabular_opts, "AAPL") |> length == 1
+    @test stock_aggregates_bars(regular_opts, "AAPL") |> length == 1
 
     # snapshot_all_tickers test
-    @test snapshot_all_tickers(tabular_opts, "AAPL,AMZN") |> length == 2
-    @test snapshot_all_tickers(regular_opts, "AAPL,AMZN") |> length == 2
+    @test stock_snapshot_all_tickers(tabular_opts, "AAPL,AMZN") |> length == 2
+    @test stock_snapshot_all_tickers(regular_opts, "AAPL,AMZN") |> length == 2
 
     # snapshot_ticker test
-    @test snapshot_ticker(tabular_opts, "AAPL") |> length == 9
-    @test snapshot_ticker(regular_opts, "AAPL") |> length == 9
+    @test stock_snapshot_ticker(tabular_opts, "AAPL") |> length == 9
+    @test stock_snapshot_ticker(regular_opts, "AAPL") |> length == 9
 
     # snapshot_gainers_losers test
-    @test snapshot_gainers_losers(tabular_opts, "losers") |> length >= 20
-    @test snapshot_gainers_losers(regular_opts, "gainers") |> length >= 20
+    @test stock_snapshot_gainers_losers(tabular_opts, "losers") |> length >= 20
+    @test stock_snapshot_gainers_losers(regular_opts, "gainers") |> length >= 20
 end
 
 

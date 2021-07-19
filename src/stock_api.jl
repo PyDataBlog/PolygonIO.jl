@@ -1,8 +1,8 @@
 ############ Trades  ####################
 """
 """
-function trades(opts::PolyOpts, ticker::String, date::String; limit=10, reverse=true, kwargs...)
-    trades_url = "$trades_base_url/$ticker/$date"
+function stock_trades(opts::PolyOpts, ticker::AbstractString, date::AbstractString; limit=10, reverse=true, kwargs...)
+    stock_trades_url = "$stock_trades_base_url/$ticker/$date"
     params = Dict(
         "apiKey" => opts.api_key,
         "limit" => limit,
@@ -11,15 +11,15 @@ function trades(opts::PolyOpts, ticker::String, date::String; limit=10, reverse=
 
     merge!(params, Dict(kwargs))
 
-    return generate_output_from_url(YesSinkYesResults(), trades_url, params, opts.sink)
+    return generate_output_from_url(YesSinkYesResults(), stock_trades_url, params, opts.sink)
 end
 
 
 ############ Quotes  ####################
 """
 """
-function quotes_nbbo(opts::PolyOpts, ticker::String, date::String; limit=10, reverse=true, kwargs...)
-    quotes_url = "$quotes_base_url/$ticker/$date"
+function stock_quotes_nbbo(opts::PolyOpts, ticker::AbstractString, date::AbstractString; limit=10, reverse=true, kwargs...)
+    stock_quotes_url = "$stock_quotes_base_url/$ticker/$date"
     params = Dict(
         "apiKey" => opts.api_key,
         "limit" => limit,
@@ -28,79 +28,79 @@ function quotes_nbbo(opts::PolyOpts, ticker::String, date::String; limit=10, rev
 
     merge!(params, Dict(kwargs))
 
-    return generate_output_from_url(YesSinkYesResults(), quotes_url, params, opts.sink)
+    return generate_output_from_url(YesSinkYesResults(), stock_quotes_url, params, opts.sink)
 end
 
 
 # ############ Last Trade For A Symbol v2  ####################
 """
 """
-function last_trade_symbol(opts::PolyOpts, stocksTicker::String)
-    last_trade_url = "$last_trade_base_url/$stocksTicker"
+function stock_last_trade_symbol(opts::PolyOpts, stocksTicker::AbstractString)
+    stock_last_trade_url = "$stock_last_trade_base_url/$stocksTicker"
     params = Dict("apiKey" => opts.api_key)
 
-    return generate_output_from_url(YesSinkYesResults(), last_trade_url, params, opts.sink)
+    return generate_output_from_url(YesSinkYesResults(), stock_last_trade_url, params, opts.sink)
 end
 
 
 # ############ Last Quote For A Symbol v2  ####################
 """
 """
-function last_quote_symbol(opts::PolyOpts, stocksTicker::String)
-    last_quote_url = "$last_quote_base_url/$stocksTicker"
+function stock_last_quote_symbol(opts::PolyOpts, stocksTicker::AbstractString)
+    stock_last_quote_url = "$stock_last_quote_base_url/$stocksTicker"
     params = Dict("apiKey" => opts.api_key)
 
-    return generate_output_from_url(YesSinkYesResults(), last_quote_url, params, opts.sink)
+    return generate_output_from_url(YesSinkYesResults(), stock_last_quote_url, params, opts.sink)
 end
 
 
 # ############ Daily Open/Close  ####################
 """
 """
-function daily_open_close(opts::PolyOpts, stocksTicker::String, date::String; adjusted=true)
-    daily_open_close_url = "$daily_open_close_base_url/$stocksTicker/$date"
+function stock_daily_open_close(opts::PolyOpts, stocksTicker::AbstractString, date::AbstractString; adjusted=true)
+    stock_daily_open_close_url = "$stock_daily_open_close_base_url/$stocksTicker/$date"
     params = Dict(
         "apiKey" => opts.api_key,
         "adjusted" => adjusted
     )
 
-    return generate_output_from_url(YesSinkNoResults(), daily_open_close_url, params, opts.sink)
+    return generate_output_from_url(YesSinkNoResults(), stock_daily_open_close_url, params, opts.sink)
 end
 
 
 # ############ Grouped Daily (Bars)  ####################
 """
 """
-function grouped_daily_bars(opts::PolyOpts, date::String; adjusted=true)
-    grouped_daily_bars_url = "$grouped_daily_bars_base_url/$date"
+function stock_grouped_daily_bars(opts::PolyOpts, date::AbstractString; adjusted=true)
+    stock_grouped_daily_bars_url = "$stock_grouped_daily_bars_base_url/$date"
     params = Dict(
         "apiKey" => opts.api_key,
         "adjusted" => adjusted
     )
 
-    return generate_output_from_url(YesSinkYesResults(), grouped_daily_bars_url, params, opts.sink)
+    return generate_output_from_url(YesSinkYesResults(), stock_grouped_daily_bars_url, params, opts.sink)
 end
 
 
 # ############ Previous Close  ####################
 """
 """
-function previous_close(opts::PolyOpts, stocksTicker::String; adjusted=true)
-    previous_close_url = "$previous_close_base_url/$stocksTicker/prev"
+function stock_previous_close(opts::PolyOpts, stocksTicker::AbstractString; adjusted=true)
+    stock_previous_close_url = "$stock_previous_close_base_url/$stocksTicker/prev"
     params = Dict(
         "apiKey" => opts.api_key,
         "adjusted" => adjusted
     )
 
-    return generate_output_from_url(YesSinkYesResults(), previous_close_url, params, opts.sink)
+    return generate_output_from_url(YesSinkYesResults(), stock_previous_close_url, params, opts.sink)
 end
 
 
 # ############ Aggregates (Bars)  ####################
 """
 """
-function aggregates_bars(opts::PolyOpts,
-                        stocksTicker::String;
+function stock_aggregates_bars(opts::PolyOpts,
+                        stocksTicker::AbstractString;
                         multiplier=1,
                         timespan="day",
                         from="2020-10-14",
@@ -110,7 +110,7 @@ function aggregates_bars(opts::PolyOpts,
                         limit=120,
                         kwargs...)
 
-    aggregates_bars_url = "$aggregates_bars_base_url/$stocksTicker/range/$multiplier/$timespan/$from/$to"
+    stock_aggregates_bars_url = "$stock_aggregates_bars_base_url/$stocksTicker/range/$multiplier/$timespan/$from/$to"
 
     params = Dict(
         "apiKey" => opts.api_key,
@@ -125,7 +125,7 @@ function aggregates_bars(opts::PolyOpts,
 
     merge!(params, Dict(kwargs))
 
-    return generate_output_from_url(YesSinkYesResults(), aggregates_bars_url, params, opts.sink)
+    return generate_output_from_url(YesSinkYesResults(), stock_aggregates_bars_url, params, opts.sink)
 
 end
 
@@ -133,38 +133,38 @@ end
 # ############ Snapshot - All Tickers  ####################
 """
 """
-function snapshot_all_tickers(opts::PolyOpts, tickers::String)
-    snapshot_all_tickers_url = "$snapshot_all_tickers_base_url"
+function stock_snapshot_all_tickers(opts::PolyOpts, tickers::AbstractString)
+    stock_snapshot_all_tickers_url = "$stock_snapshot_all_tickers_base_url"
 
     params = Dict(
         "apiKey" => opts.api_key,
         "tickers" => tickers
     )
 
-    return generate_output_from_url(NoSinkYesTickers(), snapshot_all_tickers_url, params, opts.sink)
+    return generate_output_from_url(NoSinkYesTickers(), stock_snapshot_all_tickers_url, params, opts.sink)
 end
 
 
 # ############ Snapshot - Ticker  ####################
 """
 """
-function snapshot_ticker(opts::PolyOpts, stocksTicker::String)
-    snapshot_ticker_url = "$snapshot_ticker_base_url/$stocksTicker"
+function stock_snapshot_ticker(opts::PolyOpts, stocksTicker::AbstractString)
+    stock_snapshot_ticker_url = "$stock_snapshot_ticker_base_url/$stocksTicker"
     params = Dict("apiKey" => opts.api_key)
 
-    return generate_output_from_url(NoSinkYesTicker(), snapshot_ticker_url, params, opts.sink)
+    return generate_output_from_url(NoSinkYesTicker(), stock_snapshot_ticker_url, params, opts.sink)
 end
 
 
 # ############ Snapshot - Gainers/Losers  ####################
 """
 """
-function snapshot_gainers_losers(opts::PolyOpts, direction="losers")
-    snapshot_gainers_losers_url = "$snapshot_gainers_losers_base_url/$direction"
+function stock_snapshot_gainers_losers(opts::PolyOpts, direction="losers")
+    stock_snapshot_gainers_losers_url = "$stock_snapshot_gainers_losers_base_url/$direction"
     params = Dict(
         "apiKey" => opts.api_key,
         "direction" => direction
     )
 
-    return generate_output_from_url(NoSinkYesTickers(), snapshot_gainers_losers_url, params, opts.sink)
+    return generate_output_from_url(NoSinkYesTickers(), stock_snapshot_gainers_losers_url, params, opts.sink)
 end
