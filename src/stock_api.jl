@@ -19,7 +19,7 @@ julia> stock_trades(opts, "AAPL", "2017-01-01")
 ```
 
 # Returns
- * A JSON3.Array or specified tabular representation of the JSON3.Array
+ * A JSON3.Array or specified tabular representation of the JSON3.Array.
  * See https://polygon.io/docs/get_v2_ticks_stocks_trades__ticker___date__anchor for documentation on response attributes and supported keyword arguments.
 """
 function stock_trades(opts::PolyOpts, ticker::AbstractString, date::AbstractString; limit=10, reverse=true, kwargs...)
