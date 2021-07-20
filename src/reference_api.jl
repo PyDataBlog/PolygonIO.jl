@@ -7,12 +7,12 @@ Query all ticker symbols which are supported by Polygon.io. This API currently i
 
 # Arguments
  * opts::PolyOpts - Polygon API options
- * search::AbstractString - Search string
- * active::Boolean - Filter by active/inactive tickers
- * sort::String - Sort by field
- * order::String - Sort order
- * limit::Integer - Limit results
- * kwargs::Dict - Additional query parameters
+ * search::AbstractString - Search for terms within the ticker and/or company name.
+ * active::Boolean - Specify if the tickers returned should be actively traded on the queried date. Default is true.
+ * sort::String - The field to sort the results on. Default is ticker. If the search query parameter is present, sort is ignored and results are ordered by relevance.
+ * order::String - The order to sort the results on. Default is asc (ascending).
+ * limit::Integer - Limit the size of the response, default is 100 and max is 1000. If your query returns more than the max limit and you want to retrieve the next page of results, see the next_url response attribute.
+ * kwargs::Dict - Additional query parameters.
 
 # Example
 ```julia-repl
@@ -76,7 +76,7 @@ This provides a general overview of the entity with information such as name, se
 
 # Arguments
  * opts::PolyOpts - Polygon API options
- * stocksTicker::AbstractString - Ticker symbol
+ * stocksTicker::AbstractString - The ticker symbol of the stock/equity.
 
 # Example
 ```julia-repl
@@ -105,8 +105,10 @@ This response will have detailed information about the ticker and the company be
 
 # Arguments
  * opts::PolyOpts - Polygon API options
- * ticker::AbstractString - Ticker symbol
- * date::AbstractString - Date for which to get data
+ * ticker::AbstractString - The ticker symbol of the asset.
+ * date::AbstractString - Specify a point in time to get information about the ticker available on that date. When retrieving information from SEC filings, we compare this date with the period of report date on the SEC filing.
+For example, consider an SEC filing submitted by AAPL on 2019-07-31, with a period of report date ending on 2019-06-29. That means that the filing was submitted on 2019-07-31, but the filing was created based on information from 2019-06-29. If you were to query for AAPL details on 2019-06-29, the ticker details would include information from the SEC filing.
+Defaults to the most recent available date.
 
 # Example
 ```julia-repl
@@ -141,11 +143,12 @@ Get the most recent news articles relating to a stock ticker symbol, including a
 
 # Arguments
  * opts::PolyOpts - Polygon API options
- * ticker::AbstractString - Ticker symbol
- * published_utc_gte::AbstractString - Date to retrieve news from
- * limit::Integer - Limit results
- * order::String - Sort order
- * sort::String - Sort by field
+ * ticker::AbstractString - Ticker symbol. Return results where this field equals the value.
+ * published_utc_gte::AbstractString - Return results where this field is greater than or equal to the value.
+ * limit::Integer - Limit the size of the response, default is 100 and max is 1000.
+    If your query returns more than the max limit and you want to retrieve the next page of results, see the next_url response attribute.
+ * order::String - Order the results in ascending or descending order.
+ * sort::String - The field key to sort the results on.
  * kwargs::Dict - Additional query parameters
 
 # Example
@@ -237,7 +240,7 @@ Get a list of historical stock splits for a ticker symbol, including the executi
 
 # Arguments
  * opts::PolyOpts - Polygon API options
- * stocksTicker::AbstractString - Ticker symbol
+ * stocksTicker::AbstractString - The ticker symbol of the stock/equity.
 
 # Example
 ```julia-repl
@@ -265,7 +268,7 @@ Get a list of historical dividends for a stock, including the relevant dates and
 
 # Arguments
  * opts::PolyOpts - Polygon API options
- * stocksTicker::AbstractString - Ticker symbol
+ * stocksTicker::AbstractString - The ticker symbol of the stock/equity.
 
 # Example
 ```julia-repl
@@ -293,8 +296,8 @@ Get historical financial data for a stock ticker.
 
 # Arguments
  * opts::PolyOpts - Polygon API options
- * stocksTicker::AbstractString - Ticker symbol
- * limit::Integer - Limit results
+ * stocksTicker::AbstractString - The ticker symbol of the stock/equity.
+ * limit::Integer - Limit the number of results.
  * kwargs::Any: A list of additional arguments to pass to the Polygon IO API.
 
 # Example
@@ -404,7 +407,7 @@ Polygon.io defines its own mapping to allow for uniformly identifying a conditio
 
 # Arguments
  * opts::PolyOpts - Polygon API options
- * tickertype::AbstractString - Type of ticker to get condition mappings for. Must be one of "trades" or "quotes".
+ * tickertype::AbstractString - The type of ticks to return mappings for. Must be one of "trades" or "quotes".
 
 # Example
 ```julia-repl
