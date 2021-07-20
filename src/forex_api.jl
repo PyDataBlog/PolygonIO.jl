@@ -6,10 +6,10 @@ Get historic ticks for a forex currency pair.
 
 # Arguments
  * opts::PolyOpts: The PolyOpts object used to configure the request.
- * from: The currency from which the forex currency pair is converted.
- * to: The currency to which the forex currency pair is converted.
- * date: The date of the forex tick.
- * limit: The maximum number of ticks to return.
+ * from: The "from" symbol of the currency pair. Example: For USD/JPY the from would be USD.
+ * to: The "to" symbol of the currency pair. Example: For USD/JPY the to would be JPY.
+ * date: The date/day of the historic ticks to retrieve.
+ * limit: TLimit the size of the response, max 10000. Defualt 100.
  * kwargs: Additional parameters to pass to the Poly API.
 
 # Example
@@ -44,10 +44,10 @@ Note than you can convert in both directions. For example USD to CAD or CAD to U
 
 # Arguments
  * opts::PolyOpts: The PolyOpts object used to configure the request.
- * from: The currency from which the forex currency pair is converted.
- * to: The currency to which the forex currency pair is converted.
+ * from: The "from" symbol of the pair.
+ * to: The "to" symbol of the pair.
  * amount: The amount to convert.
- * precision: The number of decimal places to return.
+ * precision: The decimal precision of the conversion. Defaults to 2 which is 2 decimal places accuracy.
 
 # Example
 ```julia-repl
@@ -78,8 +78,8 @@ Get the last quote tick for a forex currency pair.
 
 # Arguments
  * opts::PolyOpts: The PolyOpts object used to configure the request.
- * from: The currency from which the forex currency pair is converted.
- * to: The currency to which the forex currency pair is converted.
+ * from: The "from" symbol of the pair.
+ * to: The "to" symbol of the pair.
 
 # Example
 ```julia-repl
@@ -108,8 +108,9 @@ Get the daily open, high, low, and close (OHLC) for the entire forex markets.
 
 # Arguments
  * opts::PolyOpts: The PolyOpts object used to configure the request.
- * date: The date of the forex tick.
- * adjusted: Whether to return adjusted prices.
+ * date: The beginning date for the aggregate window.
+ * adjusted: Whether or not the results are adjusted for splits.
+    By default, results are adjusted. Set this to false to get results that are NOT adjusted for splits.
 
 # Example
 ```julia-repl
@@ -139,8 +140,9 @@ Get the previous day's open, high, low, and close (OHLC) for the specified forex
 
 # Arguments
  * opts::PolyOpts: The PolyOpts object used to configure the request.
- * forexTicker: The forex pair to get the previous close for.
- * adjusted: Whether to return adjusted prices.
+ * forexTicker: The ticker symbol of the currency pair.
+ * adjusted: Whether or not the results are adjusted for splits.
+    By default, results are adjusted. Set this to false to get results that are NOT adjusted for splits.
 
 # Example
 ```julia-repl
@@ -173,14 +175,16 @@ For example, if timespan = ‘minute’ and multiplier = ‘5’ then 5-minute b
 
 # Arguments
  * opts::PolyOpts: The PolyOpts object used to configure the request.
- * forexTicker: The forex pair to get the previous close for.
- * multiplier: The number of minutes to aggregate bars over.
- * timespan: The time window to aggregate bars over.
- * from: The date to start the aggregation.
- * to: The date to end the aggregation.
- * adjusted: Whether to return adjusted prices.
- * sort: The order in which to return the bars.
- * limit: The maximum number of bars to return.
+ * forexTicker: The ticker symbol of the currency pair.
+ * multiplier: The size of the timespan multiplier.
+ * timespan: The size of the time window.
+ * from: The start of the aggregate time window.
+ * to: The end of the aggregate time window.
+ * adjusted: Whether or not the results are adjusted for splits.
+    By default, results are adjusted. Set this to false to get results that are NOT adjusted for splits.
+ * sort: Sort the results by timestamp. asc will return results in ascending order (oldest at the top),
+    desc will return results in descending order (newest at the top).
+ * limit: Limits the number of base aggregates queried to create the aggregate results. Max 50000 and Default 120.
 
 # Example
 ```julia-repl
@@ -215,7 +219,7 @@ Note: Snapshot data is cleared at 12am EST and gets populated as data is receive
 
 # Arguments
  * opts::PolyOpts: The PolyOpts object used to configure the request.
- * forexTicker: The forex pair to get the previous close for.
+ * forexTicker: The forex ticker.
 
 # Example
 ```julia-repl
@@ -240,7 +244,7 @@ end
 """
     forex_snapshot_all_tickers(opts::PolyOpts; kwargs...)
 
-Get the current minute, day, and previous day’s aggregate, as well as the last trade and quote for all traded forex symbols. 
+Get the current minute, day, and previous day’s aggregate, as well as the last trade and quote for all traded forex symbols.
 Note: Snapshot data is cleared at 12am EST and gets populated as data is received from the exchanges. This can happen as early as 4am EST.
 
 # Arguments
@@ -278,7 +282,7 @@ Note: Snapshot data is cleared at 12am EST and gets populated as data is receive
 
 # Arguments
  * opts::PolyOpts: The PolyOpts object used to configure the request.
- * direction: The direction of the snapshot.
+ * direction: The direction of the snapshot results to return. "gainers" or "losers".
 
 # Example
 ```julia-repl

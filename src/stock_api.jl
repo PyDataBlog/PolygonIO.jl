@@ -6,10 +6,10 @@ Get stock trades for a given ticker symbol on a specified date.
 
 # Arguments
  * opts::PolyOpts: The PolyOpts object used to configure the request.
- * ticker::AbstractString: The ticker symbol.
- * date::AbstractString: The date to get the trades for.
- * limit::AbstractString: The maximum number of trades to return.
- * reverse::AbstractString: Whether to return trades in reverse chronological order.
+ * ticker::AbstractString: The ticker symbol we want trades for.
+ * date::AbstractString: The date/day of the trades to retrieve in the format YYYY-MM-DD.
+ * limit::Int: Limit the size of the response, max 50000 and default 10.
+ * reverse::Boolean: Reverse the order of the results.
  * kwargs::Any: A list of additional arguments to pass to the Polygon IO API.
 
 # Example
@@ -44,10 +44,10 @@ Get NBBO quotes for a given ticker symbol on a specified date.
 
 # Arguments
  * opts::PolyOpts: The PolyOpts object used to configure the request.
- * ticker::AbstractString: The ticker symbol.
- * date::AbstractString: The date to get the quotes for.
- * limit::Int: The maximum number of quotes to return.
- * reverse::Bool: Whether to return quotes in reverse chronological order.
+ * ticker::AbstractString: The ticker symbol we want quotes for.
+ * date::AbstractString: The date/day of the quotes to retrieve in the format YYYY-MM-DD.
+ * limit::Int: Limit the size of the response, max 50000 and default 10.
+ * reverse::Bool: Reverse the order of the results.
  * kwargs::Any: A list of additional arguments to pass to the Polygon IO API.
 
 # Example
@@ -83,7 +83,7 @@ Get the most recent trade for a given stock.
 
 # Arguments
  * opts::PolyOpts: The PolyOpts object used to configure the request.
- * stocksTicker::AbstractString: The ticker symbol.
+ * stocksTicker::AbstractString: The ticker symbol of the stock/equity.
 
 # Example
 ```julia-repl
@@ -111,7 +111,7 @@ Get the most recent NBBO (Quote) tick for a given stock.
 
 # Arguments
  * opts::PolyOpts: The PolyOpts object used to configure the request.
- * stocksTicker::AbstractString: The ticker symbol.
+ * stocksTicker::AbstractString: The ticker symbol of the stock/equity.
 
 # Example
 ```julia-repl
@@ -139,9 +139,10 @@ Get the open, close and afterhours prices of a stock symbol on a certain date.
 
 # Arguments
  * opts::PolyOpts: The PolyOpts object used to configure the request.
- * stocksTicker::AbstractString: The ticker symbol.
- * date::AbstractString: The date to get the prices for.
- * adjusted::Bool: Whether to return adjusted prices.
+ * stocksTicker::AbstractString: The ticker symbol of the stock/equity.
+ * date::AbstractString: The date of the requested open/close in the format YYYY-MM-DD.
+ * adjusted::Bool: Whether or not the results are adjusted for splits. By default, results are adjusted.
+    Set this to false to get results that are NOT adjusted for splits.
 
 # Example
 ```julia-repl
@@ -172,8 +173,9 @@ Get the daily open, high, low, and close (OHLC) for the entire stocks/equities m
 
 # Arguments
  * opts::PolyOpts: The PolyOpts object used to configure the request.
- * date::AbstractString: The date to get the prices for.
- * adjusted::Bool: Whether to return adjusted prices.
+ * date::AbstractString: The beginning date for the aggregate window.
+ * adjusted::Bool: Whether or not the results are adjusted for splits. By default, results are adjusted.
+    Set this to false to get results that are NOT adjusted for splits.
 
 # Example
 ```julia-repl
@@ -204,8 +206,9 @@ Get the previous day's open, high, low, and close (OHLC) for the specified stock
 
 # Arguments
  * opts::PolyOpts: The PolyOpts object used to configure the request.
- * stocksTicker::AbstractString: The ticker symbol.
- * adjusted::Bool: Whether to return adjusted prices.
+ * stocksTicker::AbstractString: The ticker symbol of the stock/equity.
+ * adjusted::Bool: Whether or not the results are adjusted for splits.
+    By default, results are adjusted. Set this to false to get results that are NOT adjusted for splits.
 
 # Example
 ```julia-repl
@@ -239,14 +242,16 @@ For example, if timespan = ‘minute’ and multiplier = ‘5’ then 5-minute b
 
 # Arguments
  * opts::PolyOpts: The PolyOpts object used to configure the request.
- * stocksTicker::AbstractString: The ticker symbol.
- * multiplier::AbstractString: The number of minutes to aggregate.
- * timespan::AbstractString: The time window size.
- * from::AbstractString: The start date.
- * to::AbstractString: The end date.
- * adjusted::Bool: Whether to return adjusted prices.
- * sort::AbstractString: The sort order.
- * limit::AbstractString: The number of bars to return.
+ * stocksTicker::AbstractString: The ticker symbol of the stock/equity.
+ * multiplier::Int: TThe size of the timespan multiplier.
+ * timespan::AbstractString: The size of the time window.
+ * from::AbstractString: The start of the aggregate time window.
+ * to::AbstractString: The end of the aggregate time window.
+ * adjusted::Bool: Whether or not the results are adjusted for splits.
+    By default, results are adjusted. Set this to false to get results that are NOT adjusted for splits.
+ * sort::AbstractString: Sort the results by timestamp. asc will return results in ascending order (oldest at the top),
+    desc will return results in descending order (newest at the top).
+ * limit::Int: Limits the number of base aggregates queried to create the aggregate results. Max 50000 and Default 120.
  * kwargs::AbstractString: Any additional arguments.
 
 # Example
@@ -284,14 +289,14 @@ end
 
 # ############ Snapshot - All Tickers  ####################
 """
-    stock_snapshot_all_tickers(opts::PolyOpts, stocksTicker::AbstractString)
+    stock_snapshot_all_tickers(opts::PolyOpts, tickers::AbstractString)
 
 Get the current minute, day, and previous day’s aggregate, as well as the last trade and quote for all traded stock symbols.
 Note: Snapshot data is cleared at 12am EST and gets populated as data is received from the exchanges. This can happen as early as 4am EST.
 
 # Arguments
  * opts::PolyOpts: The PolyOpts object used to configure the request.
- * stocksTicker::AbstractString: The ticker symbol.
+ * tickers::AbstractString: A comma separated list of tickers to get snapshots for.
 
 # Example
 ```julia-repl
@@ -324,7 +329,7 @@ Note: Snapshot data is cleared at 12am EST and gets populated as data is receive
 
 # Arguments
  * opts::PolyOpts: The PolyOpts object used to configure the request.
- * stocksTicker::AbstractString: The ticker symbol.
+ * stocksTicker::AbstractString: The ticker symbol of the stock/equity.
 
 # Example
 ```julia-repl
@@ -356,7 +361,7 @@ Note: Snapshot data is cleared at 12am EST and gets populated as data is receive
 
 # Arguments
  * opts::PolyOpts: The PolyOpts object used to configure the request.
- * direction::AbstractString: The direction of the snapshot. The direction can be "gainers" or "losers".
+ * direction::AbstractString: The direction of the snapshot results to return. The direction can be "gainers" or "losers".
 
 # Example
 ```julia-repl

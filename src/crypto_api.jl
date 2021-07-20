@@ -6,8 +6,8 @@ Get the last trade tick for a cryptocurrency pair.
 
 # Arguments
  * opts::PolyOpts: The PolyOpts object used to configure the request.
- * from: The currency from which to get the last trade tick.
- * to: The currency to which to get the last trade tick.
+ * from: The "from" symbol of the pair.
+ * to: The "to" symbol of the pair.
 
 # Example
 ```julia-repl
@@ -39,9 +39,9 @@ Get the open, close prices of a cryptocurrency symbol on a certain day.
 
 # Arguments
  * opts::PolyOpts: The PolyOpts object used to configure the request.
- * from: The currency from which to get the open, close prices.
- * to: The currency to which to get the open, close prices.
- * date: The date to get the open, close prices.
+ * from: The "from" symbol of the pair.
+ * to: The "to" symbol of the pair.
+ * date: The date of the requested open/close in the format YYYY-MM-DD.
  * adjusted: Whether or not the results are adjusted for splits.
    By default, results are adjusted. Set this to false to get results that are NOT adjusted for splits.
 
@@ -78,10 +78,10 @@ Get historic trade ticks for a cryptocurrency pair.
 
 # Arguments
  * opts::PolyOpts: The PolyOpts object used to configure the request.
- * from: The currency from which to get the historic trade ticks.
- * to: The currency to which to get the historic trade ticks.
- * date: The date to get the historic trade ticks.
- * limit: The maximum number of results to return.
+ * from: The "from" symbol of the crypto pair.
+ * to: The "to" symbol of the crypto pair.
+ * date: The date/day of the historic ticks to retrieve.
+ * limit: Limit the size of the response, max 10000. Defaults to 100.
  * kwargs: Additional arguments to pass to the request.
 
 # Example
@@ -117,8 +117,9 @@ Get the daily open, high, low, and close (OHLC) for the entire cryptocurrency ma
 
 # Arguments
  * opts::PolyOpts: The PolyOpts object used to configure the request.
- * date: The date to get the OHLC for.
+ * date: The beginning date for the aggregate window.
  * adjusted: Whether or not the results are adjusted for splits.
+    By default, results are adjusted. Set this to false to get results that are NOT adjusted for splits.
 
 # Example
 ```julia-repl
@@ -149,8 +150,9 @@ Get the previous day's open, high, low, and close (OHLC) for the specified crypt
 
 # Arguments
  * opts::PolyOpts: The PolyOpts object used to configure the request.
- * cryptoTicker: The currency pair to get the previous day's OHLC for.
+ * cryptoTicker: The ticker symbol of the currency pair.
  * adjusted: Whether or not the results are adjusted for splits.
+    By default, results are adjusted. Set this to false to get results that are NOT adjusted for splits.
 
 # Example
 ```julia-repl
@@ -183,14 +185,16 @@ For example, if timespan = ‘minute’ and multiplier = ‘5’ then 5-minute b
 
 # Arguments
  * opts::PolyOpts: The PolyOpts object used to configure the request.
- * cryptoTicker: The currency pair to get the aggregate bars for.
- * multiplier: The time window size multiplier.
- * timespan: The time window size.
- * from: The start date to get the aggregate bars for.
- * to: The end date to get the aggregate bars for.
+ * cryptoTicker: The ticker symbol of the currency pair.
+ * multiplier: The size of the timespan multiplier.
+ * timespan: The size of the timespan multiplier.
+ * from: The start of the aggregate time window.
+ * to: The end of the aggregate time window.
  * adjusted: Whether or not the results are adjusted for splits.
- * sort: The sort order for the results.
- * limit: The maximum number of results to return.
+    By default, results are adjusted. Set this to false to get results that are NOT adjusted for splits.
+ * sort: Sort the results by timestamp. asc will return results in ascending order (oldest at the top),
+    desc will return results in descending order (newest at the top).
+ * limit: Limits the number of base aggregates queried to create the aggregate results. Max 50000 and Default 120.
  * kwargs: Additional arguments to pass to the request.
 
 # Example
@@ -260,7 +264,7 @@ Note: Snapshot data is cleared at 12am EST and gets populated as data is receive
 
 # Arguments
  * opts::PolyOpts: The PolyOpts object used to configure the request.
- * ticker: The currency pair to get the snapshot data for.
+ * ticker: Ticker of the snapshot.
 
 # Example
 ```julia-repl
@@ -290,7 +294,7 @@ Note: Snapshot data is cleared at 12am EST and gets populated as data is receive
 
 # Arguments
  * opts::PolyOpts: The PolyOpts object used to configure the request.
- * ticker: The currency pair to get the snapshot data for.
+ * ticker: The cryptocurrency ticker.
 
 # Example
 ```julia-repl
@@ -323,7 +327,7 @@ Note: Snapshot data is cleared at 12am EST and gets populated as data is receive
 
 # Arguments
  * opts::PolyOpts: The PolyOpts object used to configure the request.
- * direction: The direction of the snapshot data to get.
+ * direction: The direction of the snapshot results to return. Options are "gainers" or "losers".
 
 # Example
 ```julia-repl

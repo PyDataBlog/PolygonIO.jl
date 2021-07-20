@@ -1,12 +1,12 @@
 ############ Tickers  ####################
 """
-tickers(opts::PolyOpts, search::AbstractString; active=true,
-        sort="ticker", order="asc", limit=10, kwargs...)
+tickers(opts::PolyOpts, search::AbstractString;
+        active=true, sort="ticker", order="asc", limit=10, kwargs...)
 
 Query all ticker symbols which are supported by Polygon.io. This API currently includes Stocks/Equities, Crypto, and Forex.
 
 # Arguments
- * opts::PolyOpts - Polygon API options
+ * opts::PolyOpts - The PolyOpts object used to configure the request.
  * search::AbstractString - Search for terms within the ticker and/or company name.
  * active::Boolean - Specify if the tickers returned should be actively traded on the queried date. Default is true.
  * sort::String - The field to sort the results on. Default is ticker. If the search query parameter is present, sort is ignored and results are ordered by relevance.
@@ -25,7 +25,7 @@ julia> tickers(opts, "bitcoin")
 * See https://polygon.io/docs/get_v3_reference_tickers_anchor for documentation on response attributes and supported keyword arguments.
 """
 function tickers(opts::PolyOpts, search::AbstractString;
-                active=true, sort="ticker", order="asc", limit=10, kwargs...)
+                 active=true, sort="ticker", order="asc", limit=10, kwargs...)
 
     params = Dict(
         "search" => search,
@@ -50,7 +50,7 @@ end
 Get a mapping of ticker types to their descriptive names.
 
 # Arguments
- * opts::PolyOpts - Polygon API options
+ * opts::PolyOpts - The PolyOpts object used to configure the request.
 
 # Example
 ```julia-repl
@@ -75,7 +75,7 @@ Get details for a ticker symbol's company/entity.
 This provides a general overview of the entity with information such as name, sector, exchange, logo and similar companies.
 
 # Arguments
- * opts::PolyOpts - Polygon API options
+ * opts::PolyOpts - The PolyOpts object used to configure the request.
  * stocksTicker::AbstractString - The ticker symbol of the stock/equity.
 
 # Example
@@ -104,7 +104,7 @@ Get a single ticker supported by Polygon.io.
 This response will have detailed information about the ticker and the company behind it.
 
 # Arguments
- * opts::PolyOpts - Polygon API options
+ * opts::PolyOpts - The PolyOpts object used to configure the request.
  * ticker::AbstractString - The ticker symbol of the asset.
  * date::AbstractString - Specify a point in time to get information about the ticker available on that date. When retrieving information from SEC filings, we compare this date with the period of report date on the SEC filing.
 For example, consider an SEC filing submitted by AAPL on 2019-07-31, with a period of report date ending on 2019-06-29. That means that the filing was submitted on 2019-07-31, but the filing was created based on information from 2019-06-29. If you were to query for AAPL details on 2019-06-29, the ticker details would include information from the SEC filing.
@@ -142,7 +142,7 @@ end
 Get the most recent news articles relating to a stock ticker symbol, including a summary of the article and a link to the original source.
 
 # Arguments
- * opts::PolyOpts - Polygon API options
+ * opts::PolyOpts - The PolyOpts object used to configure the request.
  * ticker::AbstractString - Ticker symbol. Return results where this field equals the value.
  * published_utc_gte::AbstractString - Return results where this field is greater than or equal to the value.
  * limit::Integer - Limit the size of the response, default is 100 and max is 1000.
@@ -188,7 +188,7 @@ end
 Get a list of markets that are currently supported by Polygon.io.
 
 # Arguments
- * opts::PolyOpts - Polygon API options
+ * opts::PolyOpts - The PolyOpts object used to configure the request.
 
 # Example
 ```julia-repl
@@ -214,7 +214,7 @@ end
 Get a list of locales currently supported by Polygon.io.
 
 # Arguments
- * opts::PolyOpts - Polygon API options
+ * opts::PolyOpts - The PolyOpts object used to configure the request.
 
 # Example
 ```julia-repl
@@ -239,7 +239,7 @@ end
 Get a list of historical stock splits for a ticker symbol, including the execution and payment dates of the stock split, and the split ratio.
 
 # Arguments
- * opts::PolyOpts - Polygon API options
+ * opts::PolyOpts - The PolyOpts object used to configure the request.
  * stocksTicker::AbstractString - The ticker symbol of the stock/equity.
 
 # Example
@@ -267,7 +267,7 @@ end
 Get a list of historical dividends for a stock, including the relevant dates and the amount of the dividend.
 
 # Arguments
- * opts::PolyOpts - Polygon API options
+ * opts::PolyOpts - The PolyOpts object used to configure the request.
  * stocksTicker::AbstractString - The ticker symbol of the stock/equity.
 
 # Example
@@ -295,7 +295,7 @@ end
 Get historical financial data for a stock ticker.
 
 # Arguments
- * opts::PolyOpts - Polygon API options
+ * opts::PolyOpts - The PolyOpts object used to configure the request.
  * stocksTicker::AbstractString - The ticker symbol of the stock/equity.
  * limit::Integer - Limit the number of results.
  * kwargs::Any: A list of additional arguments to pass to the Polygon IO API.
@@ -330,7 +330,7 @@ end
 Get upcoming market holidays and their open/close times.
 
 # Arguments
- * opts::PolyOpts - Polygon API options
+ * opts::PolyOpts - The PolyOpts object used to configure the request.
 
 # Example
 ```julia-repl
@@ -354,7 +354,7 @@ end
 Get the current trading status of the exchanges and overall financial markets.
 
 # Arguments
- * opts::PolyOpts - Polygon API options
+ * opts::PolyOpts - The PolyOpts object used to configure the request.
 
 # Example
 ```julia-repl
@@ -379,7 +379,7 @@ end
 Get a list of stock exchanges which are supported by Polygon.io.
 
 # Arguments
- * opts::PolyOpts - Polygon API options
+ * opts::PolyOpts - The PolyOpts object used to configure the request.
 
 # Example
 ```julia-repl
@@ -406,7 +406,7 @@ Each feed/exchange uses its own set of codes to identify conditions, so the same
 Polygon.io defines its own mapping to allow for uniformly identifying a condition across feeds/exchanges.
 
 # Arguments
- * opts::PolyOpts - Polygon API options
+ * opts::PolyOpts - The PolyOpts object used to configure the request.
  * tickertype::AbstractString - The type of ticks to return mappings for. Must be one of "trades" or "quotes".
 
 # Example
@@ -433,7 +433,7 @@ end
 Get a list of cryptocurrency exchanges which are supported by Polygon.io.
 
 # Arguments
- * opts::PolyOpts - Polygon API options
+ * opts::PolyOpts - The PolyOpts object used to configure the request.
 
 # Example
 ```julia-repl
