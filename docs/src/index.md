@@ -41,8 +41,8 @@ opts = PolyOpts(API_KEY, DataFrame)
 ticker_search_info = tickers(opts, "bitcoin")
 ```
 
-```julia-repl
-julia> tickers(tabular_opts, "bitcoin")
+```julia
+julia> ticker_search_info = tickers(opts, "bitcoin")
 10×10 DataFrame
  Row │ ticker       name                               market  locale  active  currency_symbol  currency_name         base_curre ⋯
      │ String       String                             String  String  Bool    String           String                String     ⋯
