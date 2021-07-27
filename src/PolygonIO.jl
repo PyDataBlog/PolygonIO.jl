@@ -13,7 +13,7 @@ include("urls.jl")
 include("crypto_api.jl")
 include("forex_api.jl")
 include("reference_api.jl")
-include("stock_api.jl")
+include("stocks_api.jl")
 include("streaming_socket.jl")
 
 
@@ -26,10 +26,10 @@ export PolyOpts, tickers, ticker_types, ticker_details, ticker_details_vX,
         condition_mappings, crypto_exchanges,
 
     # Stock API
-        stock_trades, stock_quotes_nbbo, stock_last_trade_symbol, stock_last_quote_symbol,
-        stock_daily_open_close, stock_grouped_daily_bars, stock_previous_close,
-        stock_aggregates_bars, stock_snapshot_all_tickers, stock_snapshot_ticker,
-        stock_snapshot_gainers_losers,
+        stocks_trades, stocks_quotes_nbbo, stocks_last_trade_symbol, stocks_last_quote_symbol,
+        stocks_daily_open_close, stocks_grouped_daily_bars, stocks_previous_close,
+        stocks_aggregates_bars, stocks_snapshot_all_tickers, stocks_snapshot_ticker,
+        stocks_snapshot_gainers_losers,
 
     # Crypto API
         last_trade_crypto_pair, crypto_daily_open_close, historic_crypto_trades,

@@ -31,27 +31,27 @@ stock_financials_base_url = "https://api.polygon.io/v2/reference/financials"
 
 
 ## Stock API ##
-stock_trades_base_url = "https://api.polygon.io/v2/ticks/stocks/trades"
+stocks_trades_base_url = "https://api.polygon.io/v2/ticks/stocks/trades"
 
-stock_quotes_base_url = "https://api.polygon.io/v2/ticks/stocks/nbbo"
+stocks_quotes_base_url = "https://api.polygon.io/v2/ticks/stocks/nbbo"
 
-stock_last_trade_base_url = "https://api.polygon.io/v2/last/trade"
+stocks_last_trade_base_url = "https://api.polygon.io/v2/last/trade"
 
-stock_last_quote_base_url = "https://api.polygon.io/v2/last/nbbo"
+stocks_last_quote_base_url = "https://api.polygon.io/v2/last/nbbo"
 
-stock_daily_open_close_base_url = "https://api.polygon.io/v1/open-close"
+stocks_daily_open_close_base_url = "https://api.polygon.io/v1/open-close"
 
-stock_grouped_daily_bars_base_url = "https://api.polygon.io/v2/aggs/grouped/locale/us/market/stocks"
+stocks_grouped_daily_bars_base_url = "https://api.polygon.io/v2/aggs/grouped/locale/us/market/stocks"
 
-stock_previous_close_base_url = "https://api.polygon.io/v2/aggs/ticker"
+stocks_previous_close_base_url = "https://api.polygon.io/v2/aggs/ticker"
 
-stock_aggregates_bars_base_url = "https://api.polygon.io/v2/aggs/ticker"
+stocks_aggregates_bars_base_url = "https://api.polygon.io/v2/aggs/ticker"
 
-stock_snapshot_all_tickers_base_url = "https://api.polygon.io/v2/snapshot/locale/us/markets/stocks/tickers"
+stocks_snapshot_all_tickers_base_url = "https://api.polygon.io/v2/snapshot/locale/us/markets/stocks/tickers"
 
-stock_snapshot_ticker_base_url = "https://api.polygon.io/v2/snapshot/locale/us/markets/stocks/tickers"
+stocks_snapshot_ticker_base_url = "https://api.polygon.io/v2/snapshot/locale/us/markets/stocks/tickers"
 
-stock_snapshot_gainers_losers_base_url = "https://api.polygon.io/v2/snapshot/locale/us/markets/stocks"
+stocks_snapshot_gainers_losers_base_url = "https://api.polygon.io/v2/snapshot/locale/us/markets/stocks"
 
 
 ## Crypto API ##
