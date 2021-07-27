@@ -25,7 +25,7 @@ julia> tickers(opts, "bitcoin")
 * See https://polygon.io/docs/get_v3_reference_tickers_anchor for documentation on response attributes and supported keyword arguments.
 """
 function tickers(opts::PolyOpts, search::AbstractString;
-                 active=true, sort="ticker", order="asc", limit=10, kwargs...)
+                active=true, sort="ticker", order="asc", limit=10, kwargs...)
 
     params = Dict(
         "search" => search,

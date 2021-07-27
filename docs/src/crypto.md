@@ -16,5 +16,6 @@ The following endpoints are covered by the Crypto API via these functions:
 Detailed information on each function can be extracted in Julia. For example;
 
 ```julia
+using PolygonIO
 julia>?last_trade_crypto_pair
 ```
