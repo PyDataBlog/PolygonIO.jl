@@ -30,9 +30,9 @@ julia> opts = PolyOpts(API_KEY, DataFrame)  # if user wants tabularised output
 julia> opts = PolyOpts(API_KEY, nothing)    # if user wants raw JSON output
 ```
 """
-struct PolyOpts <: AbstractPolyOptions
-    api_key::AbstractString
-    sink::Any
+struct PolyOpts{T1<:AbstractString, T2<:Any} <: AbstractPolyOptions
+    api_key::T1
+    sink::T2
 end
 
 ########## No Sink Structs  ##################

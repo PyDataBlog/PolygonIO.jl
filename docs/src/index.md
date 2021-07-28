@@ -27,7 +27,7 @@ pkg> add PolygonIO
 
 ```julia
 using PolygonIO
-opts = PolyOpts(API_KEY, TABLE.jl SupportedTabular_Interface Sink)
+opts = PolyOpts(API_KEY, Table.jl Supported Tabular Interface As Sink or nothing)
 data = API_FUNC(opts, [args...]; [kwargs...])
 ```
 
