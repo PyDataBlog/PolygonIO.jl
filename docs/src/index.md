@@ -68,6 +68,19 @@ julia> ticker_search_info = tickers(opts, "bitcoin")
 - [X] Full coverage of Reference Data API
 - [ ] Full coverage of WebSocket API
 
+## User API Functions & Associated Upstream Endpoints
+
+```@contents
+Pages = [
+    "crypto.md",
+    "forex.md",
+    "reference.md",
+    "stocks.md",
+    "streaming.md"
+]
+Depth = 2
+```
+
 ```@index
 ```
 
