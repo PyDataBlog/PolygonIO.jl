@@ -15,6 +15,8 @@ market_status_base_url = "https://api.polygon.io/v1/marketstatus/now"
 
 stock_exchanges_base_url = "https://api.polygon.io/v1/meta/exchanges"
 
+condition_mappings_base_url = "https://api.polygon.io/v1/meta/conditions"
+
 crypto_exchanges_base_url = "https://api.polygon.io/v1/meta/crypto-exchanges"
 
 ticker_details_base_url = "https://api.polygon.io/v1/meta/symbols"
@@ -29,27 +31,27 @@ stock_financials_base_url = "https://api.polygon.io/v2/reference/financials"
 
 
 ## Stock API ##
-trades_base_url = "https://api.polygon.io/v2/ticks/stocks/trades"
+stocks_trades_base_url = "https://api.polygon.io/v2/ticks/stocks/trades"
 
-quotes_base_url = "https://api.polygon.io/v2/ticks/stocks/nbbo"
+stocks_quotes_base_url = "https://api.polygon.io/v2/ticks/stocks/nbbo"
 
-last_trade_base_url = "https://api.polygon.io/v2/last/trade"
+stocks_last_trade_base_url = "https://api.polygon.io/v2/last/trade"
 
-last_quote_base_url = "https://api.polygon.io/v2/last/nbbo"
+stocks_last_quote_base_url = "https://api.polygon.io/v2/last/nbbo"
 
-daily_open_close_base_url = "https://api.polygon.io/v1/open-close"
+stocks_daily_open_close_base_url = "https://api.polygon.io/v1/open-close"
 
-grouped_daily_bars_base_url = "https://api.polygon.io/v2/aggs/grouped/locale/us/market/stocks"
+stocks_grouped_daily_bars_base_url = "https://api.polygon.io/v2/aggs/grouped/locale/us/market/stocks"
 
-previous_close_base_url = "https://api.polygon.io/v2/aggs/ticker"
+stocks_previous_close_base_url = "https://api.polygon.io/v2/aggs/ticker"
 
-aggregates_bars_base_url = "https://api.polygon.io/v2/aggs/ticker"
+stocks_aggregates_bars_base_url = "https://api.polygon.io/v2/aggs/ticker"
 
-snapshot_all_tickers_base_url = "https://api.polygon.io/v2/snapshot/locale/us/markets/stocks/tickers"
+stocks_snapshot_all_tickers_base_url = "https://api.polygon.io/v2/snapshot/locale/us/markets/stocks/tickers"
 
-snapshot_ticker_base_url = "https://api.polygon.io/v2/snapshot/locale/us/markets/stocks/tickers"
+stocks_snapshot_ticker_base_url = "https://api.polygon.io/v2/snapshot/locale/us/markets/stocks/tickers"
 
-snapshot_gainers_losers_base_url = "https://api.polygon.io/v2/snapshot/locale/us/markets/stocks"
+stocks_snapshot_gainers_losers_base_url = "https://api.polygon.io/v2/snapshot/locale/us/markets/stocks"
 
 
 ## Crypto API ##
