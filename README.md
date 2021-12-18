@@ -66,4 +66,5 @@ julia> ticker_search_info = tickers(opts, "bitcoin")
 - [X] Full coverage of Forex API
 - [X] Full coverage of Crypto API
 - [X] Full coverage of Reference Data API
+- [ ] Full coverage of Options API
 - [ ] Full coverage of WebSocket API

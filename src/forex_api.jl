@@ -197,7 +197,7 @@ julia> forex_aggregates_bars(opts, "C:EURUSD", "5", "minute", "2020-10-14", "202
  * See https://polygon.io/docs/get_v2_aggs_ticker__forexTicker__range__multiplier___timespan___from___to__anchor for documentation on response attributes and supported keyword arguments.
 """
 function forex_aggregates_bars(opts::PolyOpts, forexTicker="C:EURUSD", multiplier=1, timespan="day", from="2020-10-14", to="2020-10-14";
-                               adjusted=true, sort="asc", limit=120)
+                            adjusted=true, sort="asc", limit=120)
     params = Dict(
         "apiKey" => opts.api_key,
         "adjusted" => adjusted,
