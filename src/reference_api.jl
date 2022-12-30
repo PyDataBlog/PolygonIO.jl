@@ -252,9 +252,17 @@ julia> stock_splits(opts, "AAPL")
  * A JSON3.Array or specified tabular representation of the JSON3.Array.
  * See https://polygon.io/docs/get_v2_reference_splits__stocksTicker__anchor for documentation on response attributes and supported keyword arguments.
 """
-function stock_splits(opts::PolyOpts, stocksTicker::AbstractString)
-    stock_splits_url = "$stock_splits_base_url/$stocksTicker"
-    params = Dict("apiKey" => opts.api_key)
+function stock_splits(opts::PolyOpts, stocksTicker::AbstractString; sort="execution_date", limit=1000, order="asc", kwargs...)
+    stock_splits_url = "$stock_splits_base_url"
+    params = Dict(
+        "ticker" => stocksTicker,
+        "apiKey" => opts.api_key,
+        "limit" => limit
+    )
+
+    kwargs = Dict(String(k)=>v for (k,v) in pairs(Dict(kwargs)))
+
+    merge!(params, Dict(kwargs))
 
     return generate_output_from_url(YesSinkYesResults(), stock_splits_url, params, opts.sink)
 end
@@ -280,9 +288,18 @@ julia> stock_dividends(opts, "AAPL")
  * A JSON3.Array or specified tabular representation of the JSON3.Array.
  * See https://polygon.io/docs/get_v2_reference_dividends__stocksTicker__anchor for documentation on response attributes and supported keyword arguments.
 """
-function stock_dividends(opts::PolyOpts, stocksTicker::AbstractString)
-    stock_dividends_url = "$stock_dividends_base_url/$stocksTicker"
-    params = Dict("apiKey" => opts.api_key)
+function stock_dividends(opts::PolyOpts, stocksTicker::AbstractString; limit=1000, kwargs...)
+    stock_dividends_url = "$stock_dividends_base_url"
+
+    params = Dict(
+        "ticker" => stocksTicker,
+        "apiKey" => opts.api_key,
+        "limit" => limit
+    )
+
+    kwargs = Dict(String(k)=>v for (k,v) in pairs(Dict(kwargs)))
+
+    merge!(params, Dict(kwargs))
 
     return generate_output_from_url(YesSinkYesResults(), stock_dividends_url, params, opts.sink)
 end

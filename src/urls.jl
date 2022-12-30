@@ -23,9 +23,9 @@ ticker_details_base_url = "https://api.polygon.io/v1/meta/symbols"
 
 ticker_details_vX_base_url = "https://api.polygon.io/vX/reference/tickers"
 
-stock_splits_base_url = "https://api.polygon.io/v2/reference/splits"
+stock_splits_base_url = "https://api.polygon.io/v3/reference/splits"
 
-stock_dividends_base_url = "https://api.polygon.io/v2/reference/dividends"
+stock_dividends_base_url = "https://api.polygon.io/v3/reference/dividends"
 
 stock_financials_base_url = "https://api.polygon.io/v2/reference/financials"
 
