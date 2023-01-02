@@ -257,7 +257,9 @@ function stock_splits(opts::PolyOpts, stocksTicker::AbstractString; sort="execut
     params = Dict(
         "ticker" => stocksTicker,
         "apiKey" => opts.api_key,
-        "limit" => limit
+        "limit" => limit,
+        "sort" => sort,
+        "order" => order
     )
 
     kwargs = Dict(String(k)=>v for (k,v) in pairs(Dict(kwargs)))

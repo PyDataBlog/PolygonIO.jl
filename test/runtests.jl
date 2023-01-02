@@ -26,7 +26,7 @@ const regular_opts = PolyOpts(API_KEY, nothing)
 
     # ticker_details_vX next version test
     @test ticker_details_vX(tabular_opts, "AAPL", "2019-07-31") |> length == 1
-    @test ticker_details_vX(regular_opts, "AAPL", "2019-07-31") |> length == 19
+    @test ticker_details_vX(regular_opts, "AAPL", "2019-07-31") |> length == 20
 
     # ticker_news test
     @test ticker_news(tabular_opts, "AAPL") |> length == 10
@@ -41,12 +41,14 @@ const regular_opts = PolyOpts(API_KEY, nothing)
     @test locales(tabular_opts) |> length >= 19
 
     # stock_splits test
-    @test stock_splits(regular_opts, "AAPL") |> length >= 4
-    @test stock_splits(tabular_opts, "AAPL") |> length >= 4
+    params = Dict(Symbol("execution_date.gte") => "2000-01-01" )
+    @test stock_splits(regular_opts, "AAPL";  params) |> length >= 4
+    @test stock_splits(regular_opts, "AAPL";  params) |> length >= 4
 
     # stock_dividends test
-    @test stock_dividends(regular_opts, "AAPL") |> length >= 65
-    @test stock_dividends(tabular_opts, "AAPL") |> length >= 65
+    params = Dict(Symbol("ex_dividend_date.gte") => "2000-01-01")
+    @test stock_dividends(regular_opts, "AAPL"; params) |> length >= 65
+    @test stock_dividends(tabular_opts, "AAPL"; params) |> length >= 65
 
     # stock_financials test
     @test stock_financials(regular_opts, "AAPL") |> length == 5
