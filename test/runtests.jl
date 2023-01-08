@@ -41,14 +41,14 @@ const regular_opts = PolyOpts(API_KEY, nothing)
     @test locales(tabular_opts) |> length >= 19
 
     # stock_splits test
-    params = Dict(Symbol("execution_date.gte") => "2000-01-01" )
-    @test stock_splits(regular_opts, "AAPL";  params) |> length >= 4
-    @test stock_splits(regular_opts, "AAPL";  params) |> length >= 4
+    params = Dict(Symbol("execution_date.gte") => "2000-01-01", Symbol("execution_date.lte") => "2020-01-01")
+    @test stock_splits(regular_opts, "AAPL";  params...) |> length == 3
+    @test stock_splits(regular_opts, "AAPL";  params...) |> length == 3
 
     # stock_dividends test
-    params = Dict(Symbol("ex_dividend_date.gte") => "2000-01-01")
-    @test stock_dividends(regular_opts, "AAPL"; params) |> length >= 65
-    @test stock_dividends(tabular_opts, "AAPL"; params) |> length >= 65
+    params = Dict(Symbol("ex_dividend_date.gte") => "2000-01-01", Symbol("ex_dividend_date.lte") => "2020-01-01")
+    @test stock_dividends(regular_opts, "AAPL"; params...) |> length == 30
+    @test stock_dividends(tabular_opts, "AAPL"; params...) |> length == 30
 
     # stock_financials test
     @test stock_financials(regular_opts, "AAPL") |> length == 5
