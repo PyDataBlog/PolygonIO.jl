@@ -252,7 +252,7 @@ julia> stock_splits(opts, "AAPL")
  * A JSON3.Array or specified tabular representation of the JSON3.Array.
  * See https://polygon.io/docs/get_v2_reference_splits__stocksTicker__anchor for documentation on response attributes and supported keyword arguments.
 """
-function stock_splits(opts::PolyOpts, stocksTicker::AbstractString, sort="execution_date", limit=1000, order="asc", kwargs...)
+function stock_splits(opts::PolyOpts, stocksTicker::AbstractString; sort="execution_date", limit=1000, order="asc", kwargs...)
     stock_splits_url = "$stock_splits_base_url"
     params = Dict(
         "ticker" => stocksTicker,
@@ -290,7 +290,7 @@ julia> stock_dividends(opts, "AAPL")
  * A JSON3.Array or specified tabular representation of the JSON3.Array.
  * See https://polygon.io/docs/get_v2_reference_dividends__stocksTicker__anchor for documentation on response attributes and supported keyword arguments.
 """
-function stock_dividends(opts::PolyOpts, stocksTicker::AbstractString, limit=1000, kwargs...)
+function stock_dividends(opts::PolyOpts, stocksTicker::AbstractString; limit=1000, kwargs...)
     stock_dividends_url = "$stock_dividends_base_url"
 
     params = Dict(
