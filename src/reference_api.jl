@@ -96,9 +96,9 @@ function ticker_details(opts::PolyOpts, stocksTicker::AbstractString)
 end
 
 
-############ Ticker Details vX ####################
+############ Ticker Details v3 ####################
 """
-    ticker_details_vX(opts::PolyOpts, ticker::AbstractString, date::AbstractString)
+    ticker_details_v3(opts::PolyOpts, ticker::AbstractString, date::AbstractString)
 
 Get a single ticker supported by Polygon.io.
 This response will have detailed information about the ticker and the company behind it.
@@ -113,25 +113,38 @@ Defaults to the most recent available date.
 # Example
 ```julia-repl
 julia> opts = PolyOpts(API_KEY, nothing)
-julia> ticker_details_vX(opts, "AAPL", "2017-01-01")
+julia> ticker_details_v3(opts, "AAPL", "2017-01-01")
 ```
 
 # Returns
  * A JSON3.Array or specified tabular representation of the JSON3.Array.
- * See https://polygon.io/docs/get_vX_reference_tickers__ticker__anchor for documentation on response attributes and supported keyword arguments.
+ * See https://polygon.io/docs/get_v3_reference_tickers__ticker__anchor for documentation on response attributes and supported keyword arguments.
 """
-function ticker_details_vX(opts::PolyOpts, ticker::AbstractString, date::AbstractString)
+function ticker_details_v3(opts::PolyOpts, ticker::AbstractString, date::AbstractString)
     # TODO: Dispatch on proper Date type?
-    ticker_details_vX_url = "$ticker_details_vX_base_url/$ticker"
+    ticker_details_v3_url = "$ticker_details_v3_base_url/$ticker"
 
     params = Dict(
         "apiKey" => opts.api_key,
         "date"   => date
     )
 
-    return generate_output_from_url(YesSinkYesResults(), ticker_details_vX_url, params, opts.sink)
+    return generate_output_from_url(YesSinkYesResults(), ticker_details_v3_url, params, opts.sink)
 end
 
+function ticker_to_figi(opts::PolyOpts, ticker::AbstractString, date::Date)
+    ticker_details_v3_url = "$ticker_details_v3_base_url/$ticker"
+    params = Dict(
+        "apiKey" => opts.api_key,
+        "ticker" => ticker,
+        "date"   => Dates.format(date, ISODateFormat)
+    )
+
+    raw = generate_output_from_url(YesSinkYesResults(), ticker_details_v3_url, params, opts.sink)
+    :status ∈ keys(raw) && raw[:status] == "NOT_FOUND" && return false
+    :composite_figi ∉ keys(raw) && return false
+    return raw[:composite_figi]
+end
 
 ############ Ticker News  #######################
 """
@@ -162,14 +175,13 @@ julia> ticker_news(opts, "AAPL", limit=5)
  * See https://polygon.io/docs/get_v2_reference_news_anchor for documentation on response attributes and supported keyword arguments.
 """
 function ticker_news(opts::PolyOpts, ticker::AbstractString;
-                    published_utc_gte="2021-04-26", limit=10,
+                    published_utc_gte="2021-04-26", 
                     order="descending", sort="published_utc",kwargs...)
 
     params = Dict(
         "apiKey" => opts.api_key,
         "ticker" => ticker,
         "published_utc.gte" => published_utc_gte,
-        "limit" => limit,
         "order" => order,
         "sort" => sort
     )
@@ -252,12 +264,12 @@ julia> stock_splits(opts, "AAPL")
  * A JSON3.Array or specified tabular representation of the JSON3.Array.
  * See https://polygon.io/docs/get_v2_reference_splits__stocksTicker__anchor for documentation on response attributes and supported keyword arguments.
 """
-function stock_splits(opts::PolyOpts, stocksTicker::AbstractString; sort="execution_date", limit=1000, order="asc", kwargs...)
+function stock_splits(opts::PolyOpts, stocksTicker::AbstractString; sort="execution_date", order="asc", kwargs...)
     stock_splits_url = "$stock_splits_base_url"
     params = Dict(
         "ticker" => stocksTicker,
         "apiKey" => opts.api_key,
-        "limit" => limit,
+        "limit" => 1000,
         "sort" => sort,
         "order" => order
     )
@@ -290,13 +302,12 @@ julia> stock_dividends(opts, "AAPL")
  * A JSON3.Array or specified tabular representation of the JSON3.Array.
  * See https://polygon.io/docs/get_v2_reference_dividends__stocksTicker__anchor for documentation on response attributes and supported keyword arguments.
 """
-function stock_dividends(opts::PolyOpts, stocksTicker::AbstractString; limit=1000, kwargs...)
+function stock_dividends(opts::PolyOpts; kwargs...)
     stock_dividends_url = "$stock_dividends_base_url"
 
     params = Dict(
-        "ticker" => stocksTicker,
         "apiKey" => opts.api_key,
-        "limit" => limit
+        "limit" => 1000
     )
 
     kwargs = Dict(String(k)=>v for (k,v) in pairs(Dict(kwargs)))

@@ -6,15 +6,15 @@ using Test
 
 dotenv()
 
-const API_KEY = ENV["API_KEY"]
+const API_KEY = ENV["POLYGON_API_KEY"]
 const tabular_opts = PolyOpts(API_KEY, Table)
 const regular_opts = PolyOpts(API_KEY, nothing)
 
 
 @testset "Reference API" begin
     # tickets test
-    @test tickers(tabular_opts, "bitcoin") |> length == 10
-    @test tickers(regular_opts, "bitcoin") |> length == 10
+    @test tickers(tabular_opts, "bitcoin") |> length == 34
+    @test tickers(regular_opts, "bitcoin") |> length == 34
 
     # ticker_types test
     @test ticker_types(tabular_opts) |> length == 2
@@ -22,15 +22,15 @@ const regular_opts = PolyOpts(API_KEY, nothing)
 
     # ticker_details test
     @test ticker_details(tabular_opts, "AAPL") |> length == 1
-    @test ticker_details(regular_opts, "AAPL") |> length >= 28
+    @test ticker_details(regular_opts, "AAPL") |> length == 28
 
-    # ticker_details_vX next version test
-    @test ticker_details_vX(tabular_opts, "AAPL", "2019-07-31") |> length == 1
-    @test ticker_details_vX(regular_opts, "AAPL", "2019-07-31") |> length == 20
+    # ticker_details_v3 next version test
+    @test ticker_details_v3(tabular_opts, "AAPL", "2019-07-31") |> length == 1
+    @test ticker_details_v3(regular_opts, "AAPL", "2019-07-31") |> length == 20
 
     # ticker_news test
-    @test ticker_news(tabular_opts, "AAPL") |> length == 10
-    @test ticker_news(regular_opts, "AAPL") |> length == 10
+    @test ticker_news(tabular_opts, "AAPL") |> length >= 11313
+    @test ticker_news(regular_opts, "AAPL") |> length >= 11313
 
     # markets test
     @test markets(regular_opts) |> length >= 7
@@ -42,13 +42,13 @@ const regular_opts = PolyOpts(API_KEY, nothing)
 
     # stock_splits test
     params = Dict(Symbol("execution_date.gte") => "2000-01-01", Symbol("execution_date.lte") => "2020-01-01")
-    @test stock_splits(regular_opts, "AAPL";  params...) |> length == 3
-    @test stock_splits(regular_opts, "AAPL";  params...) |> length == 3
+    @test stock_splits(regular_opts, "AAPL"; params...) |> length == 3
+    @test stock_splits(regular_opts, "AAPL"; params...) |> length == 3
 
     # stock_dividends test
-    params = Dict(Symbol("ex_dividend_date.gte") => "2000-01-01", Symbol("ex_dividend_date.lte") => "2020-01-01")
-    @test stock_dividends(regular_opts, "AAPL"; params...) |> length == 30
-    @test stock_dividends(tabular_opts, "AAPL"; params...) |> length == 30
+    params = Dict(:ticker => "AAPL", Symbol("ex_dividend_date.gte") => "2000-01-01", Symbol("ex_dividend_date.lte") => "2020-01-01")
+    @test stock_dividends(regular_opts; params...) |> length == 30
+    @test stock_dividends(tabular_opts; params...) |> length == 30
 
     # stock_financials test
     @test stock_financials(regular_opts, "AAPL") |> length == 5

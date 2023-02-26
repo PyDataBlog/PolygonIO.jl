@@ -21,7 +21,7 @@ crypto_exchanges_base_url = "https://api.polygon.io/v1/meta/crypto-exchanges"
 
 ticker_details_base_url = "https://api.polygon.io/v1/meta/symbols"
 
-ticker_details_vX_base_url = "https://api.polygon.io/vX/reference/tickers"
+ticker_details_v3_base_url = "https://api.polygon.io/v3/reference/tickers"
 
 stock_splits_base_url = "https://api.polygon.io/v3/reference/splits"
 
