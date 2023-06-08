@@ -6,6 +6,16 @@ Internal function to dynamically generate output from a user specified AbstractP
 function generate_output_from_url(choice::AbstractPolyChoice, url, params, sink)
     request_json = HTTP.get(url, query=params).body |> JSON3.read
 
+    :next_url ∉ keys(request_json) && return apply_choice(choice, request_json, sink)
+
+    out = copy(request_json)
+    while :next_url ∈ keys(request_json)
+        merge!(params, queryparams(URI(request_json.next_url)))
+        request_json = HTTP.get(url, query=params).body |> JSON3.read
+        out[:results] = vcat(out[:results], request_json.results)
+    end
+
+    request_json = JSON3.read(JSON3.write(out))
     return apply_choice(choice, request_json, sink)
 end
 
@@ -16,7 +26,7 @@ end
 Internal function to apply a choice for no sink and yes results scenarios.
 """
 function apply_choice(::NoSinkYesResults, x, sink)
-    return x.results
+    return x[:results]
 end
 
 
@@ -37,9 +47,9 @@ Internal function to apply a choice for yes sink and yes results scenarios.
 """
 function apply_choice(::YesSinkYesResults, x, sink)
     try
-        return x.results |> jsontable |> sink
+        return x[:results] |> jsontable |> sink
     catch
-        return x.results |> x -> sink([x])
+        return x[:results] |> x -> sink([x])
     end
 end
 

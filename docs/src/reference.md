@@ -5,7 +5,7 @@ The following endpoints are covered by the Reference API via these functions:
 * `tickers`                         => Tickers
 * `ticker_types`                    => Ticker Types
 * `ticker_details`                  => Ticker Details
-* `ticker_details_vX`               => Ticker Details vX
+* `ticker_details_v3`               => Ticker Details v3
 * `ticker_news`                     => Ticker News
 * `markets`                         => Markets
 * `locales`                         => Locales

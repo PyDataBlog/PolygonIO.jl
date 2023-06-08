@@ -4,7 +4,8 @@ module PolygonIO
 using JSON3
 using JSONTables
 using HTTP
-
+using URIs
+using Dates
 
 ######### Import modules & utils ################
 include("custom_structs.jl")
@@ -20,10 +21,10 @@ include("streaming_socket.jl")
 
 ######### Global export of user API  ################
     # Reference API
-export PolyOpts, tickers, ticker_types, ticker_details, ticker_details_vX,
+export PolyOpts, tickers, ticker_types, ticker_details, ticker_details_v3,
         ticker_news, markets, locales, stock_splits, stock_dividends,
         stock_financials, market_holidays, market_status, stock_exchanges,
-        condition_mappings, crypto_exchanges,
+        condition_mappings, crypto_exchanges, ticker_to_figi,
 
     # Stock API
         stocks_trades, stocks_quotes_nbbo, stocks_last_trade_symbol, stocks_last_quote_symbol,
